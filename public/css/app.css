@@ -1,0 +1,99 @@
+/* .navbar-brand {
+    letter-spacing: 3px;
+    color: #c24244;
+  }
+  
+  .navbar-brand:hover {
+      color: #dd7a1e;
+  }
+  
+  .navbar-scroll .nav-link,
+  .navbar-scroll .fa-bars {
+    color: #7f4722;
+  }
+  
+  .navbar-scrolled .nav-link,
+  .navbar-scrolled .fa-bars {
+    color: #7f4722;
+  }
+  
+  .navbar-scrolled {
+    background-color: #ffede7;
+  } */
+*{
+  margin: 0;padding: 0;box-sizing: border-box;
+}
+nav{
+    height: 12.5vh !important;
+}
+a{
+    color: black!important;
+}
+
+a:hover{
+    color: orange !important;
+}
+
+.cont{
+  background: url('/Images/dogo.jpeg');
+  height: 85vh;
+  width: 100vw;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.btn-container{
+  padding-left: 20%;
+  padding-top: 15%;
+}
+
+.button{
+  background-color: rgb(232, 126, 13) !important;
+  font-weight: 900 !important;
+  color: white !important;
+  padding: 1vh 2vw !important;
+  font-size: 2em !important;
+  border-radius: 1rem !important;
+}
+
+.active{
+  color:  rgb(232, 126, 13) !important;
+}
+
+.color{
+  color: rgb(22,48,56) ;
+}
+
+
+.info-pet>li{
+  list-style-type: circle;
+}
+
+.dog-image{
+  width: 100%;
+  height: 100%;
+  border-radius: .25rem;
+  -webkit-box-shadow: 0px 10px 26px -12px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 10px 26px -12px rgba(0,0,0,0.75);
+  box-shadow: 0px 10px 26px -12px rgba(0,0,0,0.75);
+}
+
+.bg{
+  background: url('/Images/icon Grid.svg');
+}
+
+.d-flex>a>img{
+  height: 50px;
+  aspect-ratio: 1/1;
+  object-fit: contain;
+  mix-blend-mode: color-burn;
+}
+
+.tag{
+  padding-top:.5%;
+  background-color: rgb(169, 169, 169);
+  color: white;
+}
+
+
