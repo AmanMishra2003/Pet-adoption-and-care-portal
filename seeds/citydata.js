@@ -28,6 +28,7 @@ module.exports.indiaData = {
       "Uttar Pradesh": { capital: "Lucknow", population: 237882725 },
       "Uttarakhand": { capital: "Dehradun", population: 11141032 },
       "West Bengal": { capital: "Kolkata", population: 99609303 },
+      "Delhi":{}
     },
     cities: {
       "Amaravati": { population: 1030000, famousFor: ["Undavalli Caves", "Krishna River"] },
@@ -58,6 +59,7 @@ module.exports.indiaData = {
       "Lucknow": { population: 3138061, famousFor: ["Bara Imambara", "Rumi Darwaza"] },
       "Dehradun": { population: 578420, famousFor: ["Robber's Cave", "Sahastradhara"] },
       "Kolkata": { population: 4631392, famousFor: ["Victoria Memorial", "Howrah Bridge"] },
+      "Delhi":{}
     }
   };
 
