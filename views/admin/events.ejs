@@ -1,0 +1,43 @@
+<%- layout('/layout/boilerplate4.ejs') %>
+
+<main class="my-5 mx-4">
+    <p class="h2">Profile</p>
+    <p class=" my-3"><a href="/admin/profile" class="text-decoration-none text-dark ">Admin Dashboard</a> ·  <a href="/admin/profile/event" class="text-decoration-none text-dark"><span class="text-muted">Event</span></a></p>
+
+    <div class="container border rounded  px-4 py-4">
+        <form action="/admin/profile/event" method="get">
+            <div class="mb-3 w-100">
+                <div class="form-label fs-6" id="date">Date Filter:</div>
+                <input type="date" class="form-control" name="date" id="date" >
+            </div>
+            <button type="submit" class="btn btn-sm btn-success">Filter</button>
+        </form>
+    </div>
+    <div class="container py-5">
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Date</th>
+                <th scope="col">Price</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+            <% for( let index = 0; index < event.length; index++ ) { %>
+                <tr>
+                    <th scope="row"><%=index+1 %></th>
+                    <td><%= event[index].name %></td>
+                    <td><%=`${event[index].date.getDate()}/${event[index].date.getMonth()+1}/${event[index].date.getFullYear()}` %></td>
+                    <td>$<%= event[index].price %></td>
+                    <td><a href="<%= event[index].img %>">🔗</a></td>
+                  </tr>
+            <% } %>
+             
+              
+            </tbody>
+          </table>
+    </div>
+
+   </main>

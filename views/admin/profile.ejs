@@ -1,0 +1,95 @@
+<%- layout('/layout/boilerplate4.ejs') %>
+<main class="my-5 mx-4">
+    <p class="h2">Profile</p>
+    <p class="my-3"><a href="/admin/profile" class="text-decoration-none text-dark">Admin Dashboard</a> · <a href="/admin/profile"
+            class="text-decoration-none text-secondary"><span class="text-muted"></span>Profile</span></a></p>
+
+    <div class="w-75 py-4 px-2 rounded" style="background-color: rgb(244,243,237);">
+        <div class="row">
+            <div class="col-3 d-flex justify-content-center align-items-start border-end border-dark">
+                <div class="bg-danger p-2 d-flex justify-content-center align-items-center h1"
+                    style="height: 200px; width: 200px;">
+                    <%=user.username[0].toUpperCase() %>
+                </div>
+            </div>
+            <div class="col px-5">
+                <div class="h4 text-capatalize mb-4">Personal Information</div>
+                <div class="mb-3 d-flex">
+                    <div class="fs-6 fw-bold">Username: <span class="fw-light">
+                            <%=user.username %>
+                        </span></div>
+                </div>
+                <% if (user.profile) { %>
+                    <div class="mb-3 d-flex">
+                        <div class="fs-6 fw-bold me-5">First Name: <span class="fw-light">
+                                <%= user.profile.fname ? user.profile.fname :"first_name" %>
+                            </span></div>
+                        <div class="fs-6 fw-bold">Last Name: <span class="fw-light">
+                                <%= user.profile.lname?user.profile.lname: "last_name" %>
+                            </span></div>
+                    </div>
+
+                    <div class="mb-3 d-flex">
+                        <div class="fs-6 fw-bold me-5">Email: <span class="fw-light">
+                                <%=user.profile.email?user.profile.email:"example@example.com" %>
+                            </span></div>
+                        <div class="fs-6 fw-bold">Phone No: <span class="fw-light">
+                                <%= user.profile.phone?user.profile.phone: "999999999" %>
+                            </span></div>
+                    </div>
+                    <% } %>
+                        <div class="my-4 w-50 ">
+                            <%if (!user.profile) { %>
+                                <a href="/admin/profile/new" class="btn btn-md btn-warning">ADD PROFILE</a>
+                                <% } else {%>
+                                    <a href="/admin/profile/<%= user.profile._id %>/edit"
+                                        class="btn btn-md btn-success">EDIT PROFILE</a>
+                            <%} %>
+                        </div>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="data my-5 py-5 rounded" style="background-color: rgb(245, 222, 189);">
+        <p class="h5 text-center">Total Data Collected</p>
+        <canvas id="myChart" class="container my-5 bg-white w-75"></canvas>
+    </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const ctx = document.getElementById('myChart');
+      
+        new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: ['Pet Registered', 'Event Registered', 'Blog Registered', 'Vet Registered'],
+            datasets: [{
+              label: '# of Votes',
+              data: <%- JSON.stringify(CountArr)%>,
+              backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(255, 205, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                ],
+                borderColor: [
+                'rgb(255, 99, 132)',
+                'rgb(255, 159, 64)',
+                'rgb(255, 205, 86)',
+                'rgb(75, 192, 192)',
+                ],
+              borderWidth: .7
+            }]
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          },
+          
+        });
+      </script>
+      

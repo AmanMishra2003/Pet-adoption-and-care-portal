@@ -1,0 +1,162 @@
+<%- layout('/layout/boilerplate.ejs') %>
+
+    <style>
+        .blogPage_bg {
+            height: 80vh;
+            width: 100vw;
+            position: relative;
+            display: grid;
+            place-items: center;
+            padding: 3% 0;
+        }
+
+        .blogPage_bg::before {
+            content: "";
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            background: url('https://i.pinimg.com/564x/b6/52/a6/b652a63341c446f312b42b420cd25b49.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            z-index: 10;
+        }
+
+        .heading {
+            position: sticky;
+            width: 50vw;
+            height: 80%;
+            top: 10%;
+            z-index: 100;
+            /* word-spacing: 5px;
+            font-size: 4rem; */
+            /* color: #f07c1e !important; */
+        }
+        #blog{
+            text-align: justify;
+            width: 90%;
+        }
+
+        svg:hover {
+            color: orange;
+        }
+        input{
+            border: none;
+        }
+        input:focus-visible{
+            outline: none;
+        }
+        .btn:disabled{
+            border: none;
+        }
+        @media(max-width: 900px) {
+            #blog{
+            text-align: justify;
+            width: 90%;
+            }
+            .heading {
+            width: 80vw;
+            }
+        }
+        .btn-lg:hover {
+            color: white !important;
+        }
+    </style>
+
+<main class="">
+    <section class="">
+        <div class="blogPage_bg">
+            <div class="container heading text-white px-5 d-flex flex-column justify-content-between text-center fs-1">
+                <p class=" fw-bold  w-100">"<%= data.heading %>"</p>
+                <div class="fs-5 border-top border-bottom border-dark py-3">
+                    ✍🏻 <%=data.author.username%> | 🗓️ <%= dateFormat %>
+                </div>
+
+                <a href="#body"><svg xmlns="http://www.w3.org/2000/svg" width="3rem" height="3rem" fill="white"
+                        class="bi bi-arrow-bar-down" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M1 3.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5M8 6a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 .708-.708L7.5 12.293V6.5A.5.5 0 0 1 8 6" />
+                    </svg></a>
+            </div>
+        </div>
+    </section>
+    
+    <section class="background-secondary">
+    <div class="container-md py-5 bg-white">
+        <div class="d-flex justify-content-between align-items-center" id="body">
+            <div>
+                <p class="h3 border-bottom w-50 py-3 border-secondary"><%=data.title %></p>
+                <p class="h6 text-muted"><%=data.metaTitle %></p>
+            </div>
+        </div>
+        <!-- <a href="/blog/new">New blog</a> -->
+        <div>
+            <p class="m-3 fs-5 " id="blog">
+            
+            </p>
+        </div>
+    </div>
+</section>
+    <section class="container border border-dark py-4 px-3 mb-4">
+            <p class="h4">Leave A Review:</p>
+            <form action="/blog/<%= data.id %>/reviews" method="POST" class="my-3 needs-validation border-bottom pb-4"
+                novalidate>
+                <div class="mb-3 w-50">
+                    <label for="review" class="form-label">Rating: </label>
+                    <input type="range" name="review[rating]" id="review" min="1" max="5" class="form-range" value="0"
+                        required>
+                </div>
+                <div class="mb-3">
+                    <label for="review" class="form-label">Review: </label>
+                    <textarea name="review[body]" id="review" rows="3" class="form-control" required></textarea>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success text-white ">Add Review</button>
+            </form>
+            <% data.reviews.forEach(r=> { %>
+                <div class="my-4 card scrollable">
+                    <div class="card-body">
+                        <p class="card-title h5">Rating: <%= r.rating %>
+                        </p>
+                        <p class="card-text">Review: <%= r.body %>
+                        </p>
+                        <form action="/blog/<%= data.id %>/reviews/<%= r._id %>?_method=DELETE"
+                            method="POST">
+                            <button class=" btn btn-sm btn-danger" type="submit">
+                                Delete
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <% }) %>
+
+
+    </section>
+</main>
+    <script>
+        const p  = document.querySelector('#blog')
+        p.innerHTML = <%- JSON.stringify(data.blog) %>;
+
+        // const vote =  document.querySelector("input[type='number']")
+        // const form = document.querySelector('form')
+        // const increment = document.querySelector('.increment')
+        // const decrement = document.querySelector('.decrement')
+
+        // increment.onclick=()=>{
+        //     vote.value=parseInt(vote.value)+1
+        //     increment.disabled = true
+        //     decrement.disabled = false
+        //     form.submit()
+        // }
+        
+        // decrement.onclick=()=>{
+        //     vote.value=parseInt(vote.value)-1
+        //     decrement.disabled = true
+        //     increment.disabled = false
+        //     form.submit()
+        // }
+        
+
+
+    </script>

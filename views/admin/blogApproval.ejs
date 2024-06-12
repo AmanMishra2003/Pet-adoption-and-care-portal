@@ -1,0 +1,38 @@
+<%- layout('/layout/boilerplate4.ejs') %>
+
+<main class="my-5 mx-4">
+    <p class="h2">Profile</p>
+    <p class=" my-3"><a href="/admin/profile" class="text-decoration-none text-dark ">Admin Dashboard</a> ·  <a href="/admin/profile/blogapproval" class="text-decoration-none text-dark"><span class="text-muted">Blog Approval</span></a></p>
+
+    <section>
+        <% data.forEach(element => { %>
+            
+            <div class="card w-100 d-flex flex-row align-items-center text-white bg-dark my-5">
+                <div class="w-25">
+                    <img src="<%= element.img %>" alt="" srcset="" class="img-fluid w-100" style="height: 250px; object-fit: cover; object-position:center">
+                </div>
+                <div class="card-body border-end">
+                     <p class="h3 text-capitalize"><%= element.author.username %></p> <p class=" fs-6"><%=`${element.date.getDate()}/${element.date.getMonth()+1}/${element.date.getFullYear()}` %></p>
+                     <p class="fs-6 text-capitalize "><%= element.title %></p> <p  class=" fs-6"><%= element.topic %></p>
+                     <p><a href="/blog/<%=element._id%>" class="text-decoration-none btn-sm btn btn-warning">View Page</a></p>
+                </div>
+                <div class=" d-flex flex-column text-center mx-4">
+                    <div class="my-3">
+                        <form action="/admin/profile/<%=element._id%>/blogapproval/approve?_method=PATCH" method="POST" >
+                            <button class="btn btn-lg btn-success">Accept</button>
+                        </form>
+                    </div>
+                    <div class="my-3">
+                        <form action="/admin/profile/<%=element._id%>/blogapproval/decline?_method=PATCH" method="POST">
+                            <button class="btn btn-lg btn-danger">Decline</button>
+                        </form>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        <%}) %>
+        
+    </section>
+    
+   </main>

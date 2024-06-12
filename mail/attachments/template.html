@@ -1,0 +1,114 @@
+<!-- <!DOCTYPE html> -->
+<html >
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <title>Appointment Details</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        hr {
+            border: none;
+            border-top: 1px solid #ddd;
+        }
+        .signature {
+            margin-top: 20px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    {{#each users}}
+    <table>
+        <tr>
+            <th colspan="2">Vet Information</th>
+        </tr>
+        <tr>
+            <td>Clinic Name</td>
+            <td>{{this.vetclinicName}}</td>
+        </tr>
+        <tr>
+            <td>Vet Name</td>
+            <td>{{this.vetname}}</td>
+        </tr>
+        <tr>
+            <td>Clinic Address</td>
+            <td>{{this.clinicAddress}}</td>
+        </tr>
+        <tr>
+            <td>Clinic Contact Number</td>
+            <td>{{this.vetnumber}}</td>
+        </tr>
+    </table>
+
+    <table>
+        <tr>
+            <th colspan="2">Patient Information</th>
+        </tr>
+        <tr>
+            <td>Owner's Name</td>
+            <td>{{this.name}}</td>
+        </tr>
+        <tr>
+            <td>Owner's Email</td>
+            <td>{{this.email}}</td>
+        </tr>
+        <tr>
+            <td>Appointment Date</td>
+            <td>{{this.date}}</td>
+        </tr>
+        <tr>
+            <td>Appointment Time</td>
+            <td>{{this.time}}</td>
+        </tr>
+        <tr>
+            <td>Animal Type</td>
+            <td>{{this.animal}}</td>
+        </tr>
+        <tr>
+            <td>Pet's Name</td>
+            <td>{{this.petname}}</td>
+        </tr>
+        <tr>
+            <td>Owner's Phone Number</td>
+            <td>{{this.phone}}</td>
+        </tr>
+        <tr>
+            <td>Description</td>
+            <td>{{this.description}}</td>
+        </tr>
+    </table>
+    {{/each}}
+    <hr>
+    <br><br><br>
+    <div class="signature">
+        PETMATCH
+    </div>
+</body>
+</html>
+<!-- <html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hello world!</title>
+  </head>
+  <body>
+    <h1>User List</h1>
+    <ul>
+      {{#each users}}
+      <li>Name: {{this.name}}</li>
+      <li>Age: {{this.age}}</li>
+      <br />
+      {{/each}}
+    </ul>
+  </body>
+</html> -->

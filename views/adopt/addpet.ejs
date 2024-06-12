@@ -1,0 +1,266 @@
+<%- layout('/layout/boilerplate3.ejs') %>
+    <main class="my-5 mx-4">
+        <p class="h2">Profile</p>
+        <p class="fs-7 my-3"><a href="/profile" class="text-decoration-none text-dark">Dashboard</a> · <a
+                href="/profile" class="text-decoration-none text-dark">Profile</a> · <a href="/addpet"
+                class="text-decoration-none text-dark"><span class="text-muted"> Add Pet</span></a></p>
+
+        <section class=" px-5 py-3 rounded" style="background-color: rgb(244,243,237) ;">
+            <h3 class="" style="color: rgb(212, 125, 75);">
+                Add Animal For Adoptions:
+            </h3>
+
+            <form action="/adopt" method="POST" class="needs-validation" novalidate>
+                <div class="py-3 px-2 ">
+                    <div class="row justify-content-around mb-3">
+                        <div class="col-md-5 mb-3">
+                            <div class="form-group">
+                                <label for="image" class="form-label fs-6">Pet Profile Image: </label>
+                                <input type="text" id="image" name='image' class="form-control" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5  mb-3 mb-md-0">
+                            <div class="form-group">
+                                <label for="img" class="form-label fs-6">Pet Images: </label>
+                                <input type="text" id="img" name='img' class="form-control" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <p class="h5" style="color: rgb(212, 125, 75);">Pet Details: </p>
+                    <div class="row justify-content-around mb-3">
+                        <div class="col-md-5 mb-3">
+                            <div class="form-group">
+                                <label for="name" class="form-label fs-6">Name: </label>
+                                <input type="text" id="name" name='name' class="form-control" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5  mb-3 mb-md-0">
+                            <div class="form-group">
+                                <label for="gender" class="form-label fs-6">Gender: </label>
+                                <select class="form-select" aria-label="Default select example" name="gender"
+                                    id="gender" required>
+                                    <option selected>Select a gender</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                </select>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row justify-content-around mb-3">
+                        <div class="col-md-5  mb-3 mb-md-0">
+                            <div class="form-group">
+                                <label for="type" class="form-label fs-6">Type: </label>
+                                <select class="form-select" aria-label="Default select example" name="type" id="type"
+                                    required>
+                                    <option selected>Select a type</option>
+                                    <option value="Dog">Dog</option>
+                                    <option value="Cat">Cat</option>
+                                </select>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-5 mb-3">
+                            <div class="form-group">
+                                <label for="age" class="form-label fs-6">Age: </label>
+                                <input type="text" id="age" name='age' class="form-control" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row justify-content-around mb-3">
+                        <div class="col-md-5 mb-3">
+                            <div class="form-group">
+                                <label for="city" class="form-label fs-6">City: </label>
+                                <input type="text" id="city" name='city' class="form-control" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5 mb-3">
+                            <div class="form-group">
+                                <label for="state" class="form-label fs-6">State: </label>
+                                <input type="text" id="state" name='state' class="form-control" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <p class="h5" style="color: rgb(212, 125, 75);">Owner Details: </p>
+                    <div class="row justify-content-around mb-3">
+                        <div class="col-md-5 mb-3">
+                            <div class="form-group">
+                                <label for="oname" class="form-label fs-6">Name: </label>
+                                <input type="text" id="oname" name='owner_detail[name]' class="form-control" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5 mb-3">
+                            <div class="form-group">
+                                <label for="number" class="form-label fs-6">Phone No: </label>
+                                <input type="text" id="number" name='owner_detail[number]' class="form-control"
+                                    required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row justify-content-around  mb-3">
+                        <div class="col-md-5 mb-3">
+                            <label for="address" class="form-label fs-6">Address: </label>
+                            <div class="form-floating">
+                                <textarea class="form-control" placeholder="Leave a comment here" id="address"
+                                    name='owner_detail[address]'></textarea>
+                                <label for="address" class="form-label fs-6">Address </label>
+                            </div>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                        </div>
+                        <div class="col-md-5 mb-3">
+                            <div class="form-group">
+                                <label for="email" class="form-label fs-6">Email: </label>
+                                <input type="email" id="email" name='owner_detail[email]' class="form-control" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="h6" style="color: rgb(212, 125, 75);">Following Details are requeired for Pet's Profile.
+                        So kindly fill carefully!</p>
+                    <p class="h5" style="color: rgb(212, 125, 75);">Facts About Dogs:</p>
+                    <div class="row justify-content-around mb-3">
+                        <div class="col-md-5 mb-3">
+                            <div class="form-group">
+                                <label for="breed" class="form-label fs-6">Breed: </label>
+                                <input type="text" id="breed" name='facts[breed]' class="form-control" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5 mb-3">
+                            <div class="form-group">
+                                <label for="vaccinated" class="form-label fs-6">Vaccinated: </label>
+                                <select class="form-select" aria-label="Default select example" name="facts[vaccinated]"
+                                    id="vaccinated" required>
+                                    <option selected>Select a type</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row justify-content-around  mb-3">
+                        <div class="col-md-5 mb-3">
+                            <div class="form-group">
+                                <label for="neutered" class="form-label fs-6">Neutered: </label>
+                                <select class="form-select" aria-label="Default select example" name="facts[neutered]"
+                                    id="neutered" required>
+                                    <option selected>Select a type</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5 mb-3">
+                            <div class="form-group">
+                                <label for="information" class="form-label fs-6">Information: <span class="text-muted fs-7">(use ctrl to select multiple options)</span></label>
+                                <select class="form-select" aria-label="Default select example" name="info[information]"
+                                    id="information" required multiple>
+                                    <option selected>Select a type</option>
+                                    <option value="Spayed">Spayed</option>
+                                    <option value="Shots Up to Date">Shots Up to Date</option>
+                                    <option value="Needs Loving Adopter">Needs Loving Adopter</option>
+                                    <option value="Good with Cats">Good with Cats</option>
+                                    <option value="Good with Dogs">Good with Dogs</option>
+                                    <option value="Good with Kids">Good with Kids</option>
+                                </select>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-around  mb-3">
+                        <div class="col-md-11 mb-3 ">
+                            <div class="form-group">
+                                <label for="story" class="form-label fs-6">Story: </label>
+                                <div class="form-floating">
+                                    <textarea class="form-control" placeholder="Leave a comment here" id="story"
+                                        name='story[description]'></textarea>
+                                    <label for="story" class="form-label fs-6">story.. </label>
+                                </div>
+                                <div class="valid-feedback">
+                                    Looks good!
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-around  mb-3">
+                        <div class="col-md-11 mb-3 ">
+                                <div class="form-group">
+                                    <label for="additional_adoption_info" class="form-label fs-6">Additional
+                                        Adoption Info: </label>
+                                    <div class="form-floating">
+                                        <textarea class="form-control w-100" placeholder="Leave a comment here"
+                                            id="additional_adoption_info"
+                                            name='additional_adoption_info[description]'></textarea>
+                                        <label for="additional_adoption_info" class="form-label fs-6">Additional
+                                            Adoption Info </label>
+                                    </div>
+                                    <div class="valid-feedback">
+                                        Looks good!
+
+                                    </div>
+                                </div>
+                            </div>
+                       </div>
+
+
+
+                    </div>
+                    <button class="btn btn-md btn-success w-100">Submit</button>
+            </form>
+
+        </section>
+    </main>
+    <script>
+
+    </script>

@@ -30,12 +30,12 @@ a{
     color: black!important;
 }
 
-a:hover{
+a::hover{
     color: orange !important;
 }
 
 .cont{
-  background: url('/Images/dogo.jpeg');
+  background: url('/Images/dog.jpeg');
   height: 85vh;
   width: 100vw;
   background-size: cover;
@@ -95,5 +95,22 @@ a:hover{
   background-color: rgb(169, 169, 169);
   color: white;
 }
+
+.btn-main{
+  background-color: rgb(232, 126, 13) !important;
+  border-radius: 0.25rem;
+  font-size: 1.25rem;
+  padding: 1rem 2rem;
+  color: white!important;
+  transition: 200ms;
+}
+.btn-main:hover{
+  background-color: white !important;
+  outline: 2px solid rgb(232, 126, 13);
+  color: rgb(232, 126, 13)!important;
+}
+
+
+
 
 

@@ -1,0 +1,228 @@
+<%- layout('/layout/boilerplate3.ejs') %>
+
+    <main class="my-5 mx-4">
+        <p class="h2">Profile</p>
+        <p class="my-3"><a href="/profile" class="text-decoration-none text-dark">Dashboard</a> · <a href="/profile"
+                class="text-decoration-none text-secondary"><span class="text-muted"></span>Profile</span></a></p>
+
+        <div class="w-75 py-4 px-2 rounded" style="background-color: rgb(244,243,237);">
+            <div class="row">
+                <div class="col-3 d-flex justify-content-center align-items-start border-end border-dark">
+                    <div class="bg-danger p-2 d-flex justify-content-center align-items-center h1"
+                        style="height: 200px; width: 200px;">
+                        <%=user.username[0].toUpperCase() %>
+                    </div>
+                </div>
+                <div class="col px-5">
+                    <div class="h4 text-capatalize mb-4">Personal Information</div>
+                    <div class="mb-3 d-flex">
+                        <div class="fs-6 fw-bold">Username: <span class="fw-light">
+                                <%=user.username %>
+                            </span></div>
+                    </div>
+                    <% if (user.profile) { %>
+                        <div class="mb-3 d-flex">
+                            <div class="fs-6 fw-bold me-5">First Name: <span class="fw-light">
+                                    <%= user.profile.fname ? user.profile.fname :"first_name" %>
+                                </span></div>
+                            <div class="fs-6 fw-bold">Last Name: <span class="fw-light">
+                                    <%= user.profile.lname?user.profile.lname: "last_name" %>
+                                </span></div>
+                        </div>
+
+                        <div class="mb-3 d-flex">
+                            <div class="fs-6 fw-bold me-5">Email: <span class="fw-light">
+                                    <%=user.profile.email?user.profile.email:"example@example.com" %>
+                                </span></div>
+                            <div class="fs-6 fw-bold">Phone No: <span class="fw-light">
+                                    <%= user.profile.phone?user.profile.phone: "999999999" %>
+                                </span></div>
+                        </div>
+                        <% } %>
+                            <div class="my-4 w-50 ">
+                                <%if (!user.profile) { %>
+                                    <a href="/profile/new" class="btn btn-md btn-warning">ADD PROFILE</a>
+                                    <% } else {%>
+                                        <a href="/profile/<%= user.profile._id %>/edit"
+                                            class="btn btn-md btn-success">EDIT PROFILE</a>
+                                        <%} %>
+
+                            </div>
+
+                </div>
+
+            </div>
+        </div>
+        <% if ((user.pets.length)!==0) { %>
+            <div class="row my-5">
+                <div class="col">
+                    <p class="h5 py-3 border-bottom border-danger">Pet Registered</p>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Pet</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Response</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% user.pets.forEach(ele=> { %>
+                                <tr>
+                                    <th scope="row"><%= user.pets.indexOf(ele)+1 %></th>
+                                    <td class="text-muted">
+                                        <%=ele.name %>
+                                    </td>
+                                    <td class="text-muted">
+                                        <%=`${ele.posted_on.getDate()}/${ele.posted_on.getMonth()+1}/${ele.posted_on.getFullYear()}` %>
+                                    </td>
+                                    <td class="text-muted"><%=ele.isApproved?'Approved':'Pending'%></td>
+                                    <td>
+                                    <% if (ele.isApproved) { %>
+                                        <a href="/adopt/<%= ele._id %>" class="text-decoration-none">🔗</a>
+                                    <% } %>
+                                    </td>
+                                    <td class="w-100 d-flex justify-content-around">
+                                        <div class="">
+                                        <a href="/adopt/<%= ele._id %>/edit" class="btn btn-warning">Edit</a>
+                                        </div>
+                                        
+                                    </td>
+                                    <td class="w-auto">
+                                        <form action="/adopt/<%= ele._id %>?_method=DELETE" method="POST">
+                                            <button class="btn btn-danger" type="submit">Delete</button>
+                                        </form>
+                                    </td>
+                                    
+                                </tr>
+                                <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        <% } %>
+        <% if ((user.blog.length)!==0) { %>
+            <div class="row  my-5">
+                <div class="col">
+                    <p class="h5 py-3 border-bottom border-danger">Blog Registered</p>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Pet</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Response</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody class="w-100">
+                            <% user.blog.forEach(ele=> { %>
+                                <tr>
+                                    <th scope="row"><%= user.blog.indexOf(ele)+1 %></th>
+                                    <td class="text-muted">
+                                        <%=ele.title %>
+                                    </td>
+                                    <td class="text-muted">
+                                        <%=`${ele.date.getDate()} /${ele.date.getMonth()+1}/${ele.date.getFullYear()}` %>
+                                    </td>
+                                    <td class="text-muted"><%=ele.isApproved?'Approved':'Pending'%></td>
+                                    <td>
+                                    <% if (ele.isApproved) { %>
+                                        <a href="/blog/<%= ele._id %>" class="text-decoration-none">🔗</a>
+                                    <% } %>
+                                </td>
+                                    <td class="w-100 d-flex justify-content-around">
+                                        <div class="">
+                                            <a href="/blog/<%= ele.id %>/edit" class="btn btn-warning ">Edit Blog</a>
+                                        </div>
+                                        
+                                    </td>
+                                    <td class="w-auto">
+                                        <form action="/blog/<%= ele.id %>?_method=DELETE" method="POST">
+                                            <button class="btn btn-danger" >Delete Blog</a>
+                                        </form>
+                                    </td>
+
+                                    
+                                </tr>
+                                <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        <% } %>
+        <% if ((user.events.length)!==0) { %>
+            <div class="row  my-5">
+                <div class="col">
+                    <p class="h5 py-3 border-bottom border-danger">Events Registered</p>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Events</th>
+                                <th scope="col">Date</th>
+                                <!-- <th scope="col">Response</th> -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% user.events.forEach(ele=> { %>
+                                <tr>
+                                    <th scope="row"><%= user.events.indexOf(ele)+1 %></th>
+                                    <td class="text-muted">
+                                        <%=ele.name %>
+                                    </td>
+                                    <td class="text-muted">
+                                        <%=`${ele.date.getDate()} /${ele.date.getMonth()+1}/${ele.date.getFullYear()}` %>
+                                    </td>
+                                    <td><a href="/events/<%= ele._id %>" class="text-decoration-none">🔗</a></td>
+                                </tr>
+                                <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        <% } %>
+        <!-- <%// if ((user.pets.applicants)!==0) { %>
+            <div class="row  my-5">
+                <div class="col">
+                    <p class="h5 py-3 border-bottom border-danger">Applicants Approved</p>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Number</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% //for (let ele of user.pets.applicants){ %>
+                                <% //if ((ele.isApproved) === true) { %>
+                                    <tr>
+                                        <th scope="row"><%= //user.pets.applicants.indexOf(ele)+1 %></th>
+                                        <td class="text-muted">
+                                            <%=//ele.name %>
+                                        </td>
+                                        <td class="text-muted">
+                                            <%=//ele.email %>
+                                        </td>
+                                        <td class="text-muted">
+                                            <%=//ele.email %>
+                                        </td>
+                                        <td class="text-muted">
+                                            <%=//ele.phone %>
+                                        </td>
+                                        <td><a href="/events/<%= //ele._id %>" class="text-decoration-none">🔗</a></td>
+                                    </tr>
+                                <%// } %>
+                            <% //} %>
+                                
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        <% //} %> -->
+    </main>

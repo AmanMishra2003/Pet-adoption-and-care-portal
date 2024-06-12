@@ -1,0 +1,53 @@
+<%- layout('/layout/boilerplate3.ejs') %>
+
+<main class="my-5 mx-4">
+    <p class="h2">Profile</p>
+    <p class="fs-7 my-3"><a href="/profile" class="text-decoration-none text-dark">Dashboard</a> · <a href="/profile" class="text-decoration-none text-dark">Profile</a> · <a href="/profile/edit" class="text-decoration-none text-dark"><span class="text-muted"> Edit Profile</span></a></p>
+
+
+    <div class="w-75 py-4 px-2 rounded" style="background-color: rgb(244,243,237);">
+        <div class="row">
+            <div class="col-3 d-flex justify-content-center align-items-start border-end border-dark">
+                <div class="bg-danger p-2 d-flex justify-content-center align-items-center h2" style="height: 200px; width: 200px;">
+                    <%=data.fname[0].toUpperCase() %><%=data.lname[0].toUpperCase() %>
+                </div>
+            </div>
+            <div class="col px-5">
+                <div class="h4 text-capatalize mb-4">Personal Information</div>
+                <form action="/profile/<%= data._id %>?_method=PUT" method="POST">
+                    <div class="row">
+                        <div class=" col col-md-6">
+                            <div class="mb-3  ">
+                                <label for="fname" class="form-label fs-6">First Name: </label>
+                                <input type="text" class="form-control" name="fname" id="fname" value="<%= data.fname %>">
+                            </div>
+                        </div>
+                        <div class=" col col-md-6">
+                            <div class="mb-3 ">
+                                <label for="lname" class="form-label fs-6">Last Name: </label>
+                                <input type="text" class="form-control" name="lname" id="lname" value="<%= data.lname %>">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class=" col col-md-6">
+                            <div class="mb-3  ">
+                                <label for="email" class="form-label fs-6">Email: </label>
+                                <input type="email" class="form-control" name="email" id="email" value="<%= data.email %>">
+                            </div>
+                        </div>
+                        <div class=" col col-md-6">
+                            <div class="mb-3 ">
+                                <label for="phone" class="form-label fs-6">Phone No: </label>
+                                <input type="text" class="form-control" name="phone" id="phone" value="<%= data.phone %>">
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-md btn-warning w-100 my-4">EDIT</button>
+                </form>
+                
+            </div>
+            
+        </div>
+    </div>
+</main>

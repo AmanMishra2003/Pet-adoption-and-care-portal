@@ -1,0 +1,41 @@
+<%- layout('./layout/auth_boilerplate.ejs') %>
+    <div class="row m-0" >
+        <div class=" d-none d-sm-block col-sm-6 col-md-8 bg-img1 ">
+
+        </div>
+        <div class="col-sm-6 col-md-4">
+            <div class="container h-75 px-5 mt-5">
+                <div class="w-100">
+                    <div class="img text-center">
+                        <a href="/">
+                            <img src="/images/bg-remove.png" class="img-fluid" alt="">
+                        </a>
+                    </div>
+                    <p class="h3 text-uppercase text-muted text-center fw-light mb-5">Login To continue</p>
+                    <form action="/login" method="POST" class="needs-validation border-bottom border-secondary pb-5" novalidate>
+                        <%- include('../partials/flash.ejs') %>
+                        <div class="mb-3">
+                            <div class="form-group">
+                              <input type="text" class="form-control py-3" id="username" aria-describedby="username" placeholder="username" name="username" required>
+                              <div class="valid-feedback">
+                                  Looks good!
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-group">
+                              <input type="password" class="form-control py-3" id="exampleInputPassword1" placeholder="password" name="password" required>
+                              <div class="valid-feedback">
+                                  Looks good!
+                                </div>
+                            </div>
+                        </div>
+                            <button type="submit" class="btn text-white w-100 mt-3">Login</button>
+
+                    </form>
+                    <p class="text-secondary text-center py-5"> New User ? <a href="/register" class="text-decoration-none text-dark ">Sign up</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+   

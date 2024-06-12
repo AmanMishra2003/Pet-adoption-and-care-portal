@@ -1,0 +1,124 @@
+<% layout('./layout/boilerplate.ejs') %>
+<style>
+        .event-container {
+            position: relative;
+            width: 100%;
+            columns: 4;
+        }
+
+        .container-box {
+            position: relative;
+            /* width: 50%; */
+        }
+
+        .image {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: .5rem !important;
+        }
+
+        .overlay {
+            position: absolute !important;
+            top: 0 !important;
+            bottom: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            height: 100% !important;
+            width: 100% !important;
+            opacity: 0 !important;
+            transition: .5s ease !important;
+            background-color: rgb(243, 141, 39) !important;
+        }
+
+        .container-box:hover .overlay {
+            opacity: 1 !important;
+        }
+
+        .text {
+            color: white !important;
+            font-size: 20px !important;
+            position: absolute !important;
+            top: 50% !important;
+            left: 40% !important;
+            -webkit-transform: translate(-50%, -50%) !important;
+            -ms-transform: translate(-50%, -50%) !important;
+            transform: translate(-50%, -50%) !important;
+            /* text-align: center !important; */
+        }
+
+        @media(max-width: 900px) {
+            .event-container {
+                position: relative;
+                width: 100%;
+                columns: 2;
+            }
+            .blogPage_bg{
+                margin-bottom: 10vh;
+            }
+        }
+        @media(max-width: 400px) {
+            .event-container {
+                position: relative;
+                width: 100%;
+                columns: 1;
+            }
+        }
+        .btn-lg:hover {
+            background-color: white !important;
+        }
+</style>
+<main>
+    <section class=" container-md">
+        <div class="h1 w-50 text-center text-secondary d-flex  align-items-center">
+            <div class="ms-3">
+                <img src="/images/test.svg" height="150px" alt="">
+            </div>
+            <div class="ms-auto">
+                Events
+            </div>
+            <!-- <img src="/images/test.png" height="200px" alt=""> -->
+           </div>
+           
+    </section>
+    <section class="events">
+            <div class="mx-5 mb-3 h-100">
+                <div class="event-container ">
+                    <% if(News){ %>
+                        <h1 class="text-center text-secondary"><%= News %></h1>
+                    <% } %>
+                    <% data.forEach(d=> { %>
+
+                        <div class=" container-box mb-4">
+
+                            <img src="<%= d.img %>" class=" rounded card-img-top img-fluid" alt="...">
+
+                            <div class=" overlay rounded text-white  " >
+                                <div class="text d-flex flex-column justify-content-between h-50">
+                                    <h3 class="card-title fs-4">
+                                        <%= d.name %>
+                                        <% if(d.author.username){ %>
+                                        <p><%= d.author.username %></p>
+                                        <% } %>
+                                    </h3>
+                                    <div>
+                                        <p class="card-text fs-6">
+                                            <%=`${d.date.getFullYear()}-${d.date.getMonth()+1}-${d.date.getDate()}`%>
+                                        </p>
+                                        <a href="<%=d.img %>" class="btn btn-primary text-white bg-dark">View
+                                            <span class="text-white"></span></a>
+                                    </div>
+                                </div>
+                            </div>
+    
+                        </div>
+    
+                        <% }) %>
+                </div>
+
+        </div>
+
+    </section>
+   
+</main>
+

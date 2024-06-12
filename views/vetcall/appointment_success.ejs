@@ -1,0 +1,82 @@
+<%layout(' ../../layout/boilerplate2.ejs') %>
+<style>
+    .glass{
+        backdrop-filter: blur(21px) saturate(187%) !important;
+    -webkit-backdrop-filter: blur(21px) saturate(187%) !important;
+    background-color: rgba(195, 187, 187, 0.69) !important;
+    border-radius: 12px !important;
+    border: 1px solid rgba(209, 213, 219, 0.3) !important;
+    }
+</style>
+<main style="padding: 4% 0;" class="container-fluid h-100 bg">
+    <div class="container glass py-3 px-4 " >
+        <div class="w-100 d-flex ">
+            <div class="w-50 d-flex flex-column justify-content-between">
+                <div>
+                <h1 >Thank You!! <br> Your Appointment Has Been Made!</h1>
+                <h3>
+                    You will be Notify via mail for clinic reference
+                </h3>
+                </div>
+                <a href="/vet" class="btn btn-success mx-3">Back to Home Page!</a>
+            </div>
+            
+            <table class="table table-striped table-dark table-hover w-75">
+                  <tr>
+                    <th scope="row">Appointment Id:</th>
+                    <td colspan="5"><%=data.id%></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Name:</th>
+                    <td colspan="5"><%=data.name%></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Pet Name:</th>
+                    <td colspan="5"><%= data.petname%></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Pet:</th>
+                    <td colspan="5"><%= data.animal%></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Date:</th>
+                    <td colspan="5"><%= `${data.date.getFullYear()}-0${data.date.getMonth()+1}-${data.date.getDate()} `%></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Time:</th>
+                    <td colspan="5"><%= data.time%></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Email:</th>
+                    <td colspan="5"><%=data.email%></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Phone Number:</th>
+                    <td colspan="5"><%=data.phone%></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Symptoms description: </th>
+                    <td colspan="5"><%= data.description%></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Vet Name: </th>
+                    <td colspan="5"><%= data.vet.name%></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Clinic Name: </th>
+                    <td colspan="5"><%= data.vet.clinicName%></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Clinic Address: </th>
+                    <td colspan="5"><%= data.vet.clinicAddress%></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Clinic Contact: </th>
+                    <td colspan="5"><%=data.vet.number%></td>
+                  </tr>
+
+              </table>
+        </div>
+        
+    </div>
+</main>

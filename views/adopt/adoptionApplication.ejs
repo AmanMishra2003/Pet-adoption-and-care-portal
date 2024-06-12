@@ -1,0 +1,97 @@
+<%- layout('/layout/boilerplate2.ejs') %>
+    <main class="bg py-5 ">
+        <section class="container bg-white px-5 py-3 rounded">
+            <h1 class="" style="color: orange !important;">
+                Apply For Adoption:
+            </h1>
+
+            <form action="/adopt/adoptapplication" method="POST" class="needs-validation" novalidate>
+                <div class="py-3 px-2 border-bottom border-dark">
+                    <p class="h5">Fill Below Details: <span class="fs-6 text-muted text-secondary">(your details will be
+                            reviewed by the pet owner and after accepting request PetMatch will be sharing contact
+                            details between both parties)</span> </p>
+                    <div class="row justify-content-around mb-3">
+                        <div class="col-md-5 mb-3">
+                            <div class="form-group">
+                                <label for="name" class="form-label">Name: </label>
+                                <input type="text" id="name" name='name' class="form-control" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5  mb-3 mb-md-0">
+                            <div class="form-group">
+                                <label for="age" class="form-label">Age: </label>
+                                <input type="text" id="age" name='age' class="form-control" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row justify-content-around mb-3">
+                        <div class="col-md-5 mb-3 mb-md-0">
+                            <label for="address" class="form-label fs-6">Address: </label>
+                            <div class="form-floating">
+                                <textarea class="form-control" placeholder="Leave a comment here" id="address"
+                                    name='address'></textarea>
+                                <label for="address" class="form-label fs-6">Address </label>
+                            </div>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                        </div>
+                        <div class="col-md-5 mb-3 mb-md-0">
+                            <div class="form-group">
+                                <label for="email" class="form-label">Email: </label>
+                                <input type="email" id="email" name='email' class="form-control" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-around mb-3">
+                        <div class="col-md-5 mb-3 mb-md-0">
+                            <div class="form-group">
+                                <label for="phone" class="form-label">Phone Number: </label>
+                                <input type="text" id="phone" name='phone' class="form-control" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5 mb-3 mb-md-0">
+                            <div class="form-group">
+                                <label for="petid" class="form-label">Pet Id: </label>
+                                <input type="text" id="petid" name='petid' class="form-control" readonly
+                                    value="<%=id%>">
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="my-4">
+                    <div class="row">
+                        <p class="h5 ">Description: </p>
+                        <div class="col-12 mb-3 mb-md-0">
+                            <div class="mb-3">
+                                <label for="blog" class="form-label fw-bold">Why You Want To Adopt ? :</label>
+                                <textarea class="form-control bodyread" id="blog" rows="10" name="description"
+                                    required></textarea>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success w-100">Submit</button>
+</form>
+
+        </section>
+    </main>

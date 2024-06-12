@@ -5,34 +5,48 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <div class="d-flex align-items-center w-100">
+        <ul class="navbar-nav  mb-2 mb-lg-0 w-75">
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="/">Home</a>
+            <a class="nav-link " aria-current="page" href="/"> Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/adopt">Dog List</a>
+            <a class="nav-link" href="/adopt">Pet List</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Adoption</a>
+            <a class="nav-link" href="/vet">Call a Vet</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Call a Vet</a>
+            <a class="nav-link" href="/donate">Donate</a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" href="#">Shop</a>
+          </li> -->
+          <li class="nav-item">
+            <a class="nav-link" href="/blog">Blogs</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Blog</a>
+            <a class="nav-link" href="/events">Events</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Contact</a>
-          </li>
-
+          
         </ul>
-        <form class="d-flex" role="search">
+        <div class=" mx-auto">
+            <% if ( !currentUser || !currentAdmin) { %>
+              <% if (currentUser) { %>
+                <a class="btn btn-lg btn-warning text-white" href="/profile">Profile</a>
+                 <% } else { %>
+                  <a class="btn btn-lg btn-warning text-white" href="/admin/profile">Profile</a>
+              <% } %>
+            <%} else { %> 
+              <a class="btn btn-md btn-warning text-white" href="/login">Login</a>
+              <a class="btn btn-md btn-warning text-white" href="/register">Register</a>
+            <%} %>
+        </div>
+      </div>
+        <!-- <form class="d-flex" role="search">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
+        </form> -->
       </div>
     </div>
   </nav>

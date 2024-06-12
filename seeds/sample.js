@@ -1,6 +1,6 @@
 const mongoose =require('mongoose')
-const dogModel = require('../model/dog-Model');
-const { name } = require('ejs');
+const petModel = require('../model/pet-model');
+// const { name } = require('ejs');
 
 mongoose.connect("mongodb://localhost:27017/animal").then(()=>{
     console.log("connection establish!!")
@@ -10,9 +10,9 @@ mongoose.connect("mongodb://localhost:27017/animal").then(()=>{
 
 
 const seedDatabase = async()=>{
-    await dogModel.deleteMany({});
+    await petModel.deleteMany({});
     for(let i=0;i<10;i++){
-        const detail = new dogModel({
+        const detail = new petModel({
             name : "dogo",
             gender: "Male",
             type: "Dog",
@@ -22,15 +22,34 @@ const seedDatabase = async()=>{
             state : "Delhi",
             owner_detail:{
                 name : "ramesh",
-                number : 9822321221
+                number : 9822321221,
+                address: "Dehradun, Uttarakhand"
             },
             social_media_links:{
                 instagram:"https://www.instagram.com/",
                 whatsapp:"https://www.instagram.com/",
                 linkedin:"https://www.instagram.com/",
                 twitter:"https://www.instagram.com/",
-            }
+            },
+            posted_on: new Date(),
+            img : ['/images/huskey.png','/images/dog.jpeg'],
+            facts:{
+                bread: "Golden Retreiver",
+                vaccinated:"Yes",
+                neutered:"No"
+            },
+            info:{
+                information:['Spayed',"Shots Up to Date","Good with Kids"]
+            },
+            story:{
+                description:"Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem ipsum quibusdam quo eius, sed ex neque laboriosam voluptatibus vitae corporis."
+            },
+            additional_adoption_info:{
+                description:"She is in good health and is very sensitive . Will pull at the sleeve to communicate"
+            },
+            author:'664c8afde858b4ee3bee208a'
         })
+
         await detail.save()
     }
 }

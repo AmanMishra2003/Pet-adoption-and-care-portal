@@ -1,0 +1,35 @@
+<%- layout('/layout/boilerplate3.ejs') %>
+<main class="my-5 mx-4">
+    <p class="h2">Profile</p>
+    <p class="my-3"><a href="/profile" class="text-decoration-none text-dark">Dashboard</a> · <a href="/profile" class="text-decoration-none text-dark"><span class=""></span>Profile</span></a> · <a href="/profile" class="text-decoration-none text-dark"><span class="text-muted "></span>Pet Request</span></a> · <a href="/profile" class="text-decoration-none text-secondary"><span class="text-muted "></span>Pet Request Approval</span></a></p>
+    <section class="my-3 px-4">
+        <% applications.forEach(x => { %>
+            <div class="row bg-dark text-white py-3 my-3 rounded">
+                <div class="col-3  border-end d-flex justify-content-center align-items-center  h-auto">
+                    Name: <%= x.name %> 
+                </div>
+                <div class="col-7">
+                    <p class="fs-6">Address: <%= x.address %></p>
+                    <p class="fs-6">Email: <%= x.email %>  </p>
+                    <p class="fs-6">Number: <%= x.phone %> </p>
+                    <p class="fs-6">Age: <%= x.age %> </p>
+                    <p class="py-2">Description: <br> <span class="fs-6"> <%= x.description %></span> </p>
+                </div>
+                <div class="col-2 my-auto">
+                    <div class="my-3">
+                        <form action="/profile/<%=x._id%>/applicants/approve?_method=PATCH" method="POST" >
+                            <button class="btn btn-lg btn-success">Accept</button>
+                        </form>
+                    </div>
+                    <div class="my-3">
+                        <form action="/profile/<%=x._id%>/applicants/decline?_method=PATCH" method="POST">
+                            <button class="btn btn-lg btn-danger">Decline</button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        <% }) %>
+    </section>
+    
+</main>

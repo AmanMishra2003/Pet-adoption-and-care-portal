@@ -1,0 +1,209 @@
+<%- layout('/layout/boilerplate2.ejs') %>
+    <style>
+        .lds-ring {
+            /* change color here */
+            color: #1c4c5b
+        }
+
+        .lds-ring,
+        .lds-ring div {
+            box-sizing: border-box;
+        }
+
+        .lds-ring {
+            display: inline-block;
+            position: relative;
+            width: 40px;
+            height: 40px;
+        }
+
+        .lds-ring div {
+            box-sizing: border-box;
+            display: block;
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            margin: 4px;
+            border: 4px solid currentColor;
+            border-radius: 50%;
+            animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+            border-color: currentColor transparent transparent transparent;
+        }
+
+        .lds-ring div:nth-child(1) {
+            animation-delay: -0.45s;
+        }
+
+        .lds-ring div:nth-child(2) {
+            animation-delay: -0.3s;
+        }
+
+        .lds-ring div:nth-child(3) {
+            animation-delay: -0.15s;
+        }
+
+        @keyframes lds-ring {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+
+        }
+
+        .bodywrite {
+            text-align: justify !important;
+        }
+    </style>
+    <main class="bg py-5 ">
+        <section class="container bg-white px-5 py-3 rounded">
+            <h1 class="" style="color: orange !important;">
+                Create a Blog Post:
+            </h1>
+
+            <form action="/blog/<%=data._id%>?_method=PUT" method="POST" class="needs-validation" novalidate>
+                <div class="py-3 px-2 border-bottom border-dark">
+                    <p class="h4">Blog: </p>
+                    <div class="row justify-content-around mb-3">
+                        <div class="col-md-5 mb-3">
+                            <div class="form-group">
+                                <label for="img" class="form-label">Image: </label>
+                                <input type="text" id="img" name='img' class="form-control" value="<%= data.img %>"required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5  mb-3 mb-md-0">
+                            <div class="form-group">
+                                <label for="name" class="form-label">Title: </label>
+                                <input type="text" id="name" name='title' class="form-control" value="<%= data.title %>" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row justify-content-around mb-3">
+                        <div class="col-md-5 mb-3 mb-md-0">
+                            <div class="form-group">
+                                <label for="metaTitle" class="form-label">MetaTitle: </label>
+                                <input type="text" id="metaTitle" name='metaTitle' class="form-control" value="<%= data.metaTitle %>" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5 mb-3 mb-md-0">
+                            <div class="form-group">
+                                <label for="Heading" class="form-label">Heading: </label>
+                                <input type="text" id="Heading" name='heading' class="form-control" value="<%= data.heading %>" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-around mb-3">
+                        <div class="col-md-5 mb-3 mb-md-0">
+                            <div class="form-group">
+                                <label for="Topic" class="form-label">Topic: </label>
+                                <input type="text" id="Topic" name='topic' class="form-control" value="<%= data.topic %>" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5 mb-3 mb-md-0">
+                            <div class="form-group">
+                                <label for="Date" class="form-label">Date: </label>
+                                <input type="date" id="Date" name='date' class="form-control" readonly value="<%= dateFormat %>">
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="row justify-content-around mb-3">
+                        <div class="col-md-5 mb-3 mb-md-0">
+                            <div class="form-group">
+                                <label for="AuthorName" class="form-label">Author Name: </label>
+                                <input type="text" id="AuthorName" name='author["name"]' class="form-control" value="<%= data.author.name %>" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5 mb-3 mb-md-0">
+                            <div class="form-group">
+                                <label for="AuthorEmail" class="form-label">Author Email: </label>
+                                <input type="email" id="AuthorEmail" name='author["email"]' class="form-control" value="<%= data.author.email %>"
+                                    required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+                <div class="my-4">
+                    <div class="row">
+                        <p class="h4 ">Blog Description: </p>
+                        <span class="text-muted fs-8">**Imp** Add line break tag <b>
+                                < br>
+                            </b> whenever you want to. You can use <b>HTML</b> tag for better presentation of your blog
+                        </span>
+                        <div class="col-12 mb-3 mb-md-0">
+                            <div class="mb-3">
+                                <label for="blog" class="form-label fw-bold">Blog Body:</label>
+                                <textarea class="form-control bodyread" id="blog" rows="10" name="blog"  required><%= data.blog %></textarea>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 mb-3 mb-md-0">
+                            <div class="mb-3">
+                                <p class="fw-bold">Blog Body Preview: <button
+                                        class="btn btn-sm btn-secondary blog-btn">Generate preview</button> </p>
+                                <div class="bodywrite border px-2 py-4 ">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                <button class="btn btn-success w-100" type="submit">Submit Blog</button>
+
+            </form>
+
+        </section>
+    </main>
+
+    <script>
+        const blogread = document.querySelector('.bodyread')
+        const blogwrite = document.querySelector('.bodywrite')
+        const blogbtn = document.querySelector('.blog-btn')
+
+        // const spiral = '<div class="lds-ring"><div></div><div></div><div></div><div></div></div>'
+        // blogwrite.innerHTML = spiral
+
+        blogbtn.addEventListener('click', (e) => {
+            e.preventDefault()
+            const spiral = '<div class="lds-ring"><div></div><div></div><div></div><div></div></div>'
+            blogwrite.innerHTML = spiral
+            setTimeout(() => {
+                const text = `<div>${blogread.value}</div>`
+                blogwrite.innerHTML = text
+            }, 3000)
+
+            // console.dir(blogread.value)
+        })
+
+
+
+    </script>

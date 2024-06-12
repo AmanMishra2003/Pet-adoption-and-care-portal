@@ -1,0 +1,122 @@
+<%- layout('/layout/boilerplate3.ejs') %>
+<script
+src="https://www.paypal.com/sdk/js?client-id=AR75Ek2fdCszy2GsBqRm73wWK03pGrV9DY1fcPaF1OBS8lFY4jHlnfeBItS0yrjwQUT4rW0xpnByYIL7"></script>
+    <main class="my-5 mx-4" >
+        <p class="h2">Profile</p>
+        <p class="fs-7 my-3"><a href="/profile" class="text-decoration-none text-dark">Dashboard</a> · <a href="/profile" class="text-decoration-none text-dark">Profile</a> · <a href="/events/new" class="text-decoration-none text-dark"><span class="text-muted"> Add Events</span></a></p>
+
+        <section class=" px-5 py-3 rounded" style="background-color: rgb(244,243,237) ;">
+            <h3 class="" style="color: rgb(212, 125, 75);">
+                Create a Event Advertisement Post:
+            </h3>
+
+            <form action="/events" method="POST" class="needs-validation" novalidate >
+                <div class="py-3 px-2 border-bottom border-dark">
+                    <p class="h5" style="color: rgb(212, 125, 75);">Event: </p>
+                    <div class="row justify-content-around mb-3">
+                        <div class="col-md-5 mb-3">
+                            <div class="form-group">
+                                <label for="img" class="form-label fs-6">Image: </label>
+                                <input type="text" id="img" name='img' class="form-control" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5  mb-3 mb-md-0">
+                            <div class="form-group">
+                                <label for="name" class="form-label fs-6">Name: </label>
+                                <input type="text" id="name" name='name' class="form-control" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row justify-content-around mb-3">
+                        <div class="col-5 mb-3 mb-md-0 ">
+                            <div class="form-group">
+                                <label for="Date" class="form-label fs-6">Date: <span class="text-muted small">Advertisement charges are:- $10/day (includeing Taxes)</span> </label>
+                                <input type="date" id="Date" name='date' class="form-control" required >
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5 mb-3 mb-md-0">
+                            <div class="price">
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <div class="row justify-content-around  align-items-center rounded py-3 my-4">
+                        <h5 class="text-lead" style="color: rgb(212, 125, 75);">Donation For Animal In Need...</h5>
+                        <div class="col-md-5 img-container">
+                            <img src="https://i.pinimg.com/474x/ca/dd/11/cadd115ea283f40314ab9396af38cf67.jpg" alt=""
+                                class="img-fluid image" style="height: 60vh; object-fit: cover; width: 100%;">
+                        </div>
+                        <div class="col-md-5 bg-white ">
+                            <div class="d-flex flex-column justify-content-between " style="height: 100%;">
+                                <form action="" class="needs-validation" novalidate>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">$</span>
+                                        <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)"
+                                            name="price" placeholder="0.00" required readonly>
+                                        <span class="input-group-text">.00</span>
+                                    </div>
+                                    <div id="paypal"></div>
+                                </form>
+                            </div>
+        
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+
+        </section>
+    </main>
+    <script>
+         const img = document.querySelector('.image')
+        document.querySelector('.img-container').addEventListener('mouseenter', () => {
+            img.src = 'https://i.pinimg.com/474x/ca/dd/11/cadd115ea283f40314ab9396af38cf67.jpg'
+        })
+
+        document.querySelector('.img-container').addEventListener('mouseleave', () => {
+            img.src = 'https://i.pinimg.com/564x/b7/88/21/b78821e3bc0ffff6a0a8ce5451a4d21e.jpg'
+        })
+
+        const pay = document.querySelector("input[name='price']")
+        const input = document.querySelector("input[type='date']")
+        const form = document.querySelector('form')
+        input.addEventListener('change',()=>{
+            console.log("hello")
+            const date1 = new Date();
+            const date2 = new Date(input.value);
+            const diffTime = Math.abs(date2 - date1);
+            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24))+1; 
+            pay.value=diffDays*10
+        })
+
+    const div = document.querySelector(".message")
+    paypal.Buttons({
+        createOrder: function (data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: pay.value
+                    }
+                }]
+            })
+        },
+        onApprove: function (data, actions) {
+            return actions.order.capture().then((details) => {
+                form.submit()
+            // alert('Transaction completed by '+ details.payer.name.given_name)
+            })
+        }
+    }
+    ).render('#paypal')
+        
+    </script>

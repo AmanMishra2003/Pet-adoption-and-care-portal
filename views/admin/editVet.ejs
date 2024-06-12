@@ -1,0 +1,166 @@
+<%- layout('/layout/boilerplate4.ejs') %>
+    <main class="my-5 mx-4">
+        <p class="h2">Profile</p>
+        <p class="fs-7 my-3"><a href="/admin/profile" class="text-decoration-none text-dark">Admin Dashboard</a> · <a
+                href="/admin/profile" class="text-decoration-none text-dark">Profile</a> · <a
+                href="/admin/profile/allvet" class="text-decoration-none text-dark">Vet</a> · <a
+                href="/admin/profile/addvet" class="text-decoration-none text-secondary"><span class="text-muted"> Add
+                    Vet</span></a></p>
+
+        <section class=" px-5 py-3 rounded" style="background-color: rgb(244,243,237) ;">
+            <h3 class="" style="color: rgb(212, 125, 75);">
+                Add Vet to PetMatch:
+            </h3>
+
+            <form action="/admin/profile/allvet/<%= vetData._id %>?_method=PUT" method="POST" class="needs-validation" novalidate>
+                <div class="py-3 px-2 ">
+                    <div class="row justify-content-around mb-3">
+                        <div class="col-md-5 mb-3">
+                            <div class="form-group">
+                                <label for="img" class="form-label fs-6">Doctor Image: </label>
+                                <input type="text" id="img" name='img' class="form-control" value = "<%= vetData.img %>" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5  mb-3 mb-md-0">
+                            <div class="form-group">
+                                <label for="name" class="form-label fs-6">Vet Name: </label>
+                                <input type="text" id="name" name='name' class="form-control" value="<%= vetData.name %>" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <p class="h5" style="color: rgb(212, 125, 75);">Clinic Details: </p>
+                    <div class="row justify-content-around mb-3">
+                        <div class="col-md-5 mb-3">
+                            <div class="form-group">
+                                <label for="clinicName" class="form-label fs-6">Clinic Name: </label>
+                                <input type="text" id="clinicName" name='clinicName' class="form-control" value="<%= vetData.clinicName %>" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5  mb-3 mb-md-0">
+                            <div class="form-group">
+                                <label for="Specialist" class="form-label fs-6">Specialist: </label>
+                                <input type="text" id="Specialist" name='specialist' class="form-control" required value="<%= vetData.specialist %>">
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row justify-content-around mb-3">
+                        <div class="col-md-5  mb-3 mb-md-0">
+                            <div class="form-group">
+                                <label for="qualification" class="form-label fs-6">Qualification: </label>
+                                <input type="text" id="qualification" name='qualification' class="form-control"
+                                    required value="<%= vetData.qualification %>">
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-5 mb-3">
+                        <div class="form-group">
+                            <label for="exp" class="form-label fs-6">Experience: </label>
+                            <input type="text" id="exp" name='exp' class="form-control" required value="<%= vetData.exp %>">
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row justify-content-around mb-3">
+                    <div class="col-md-5 mb-3">
+                        <div class="form-group">
+                            <label for="clinicNumber" class="form-label fs-6">Clinic Number: </label>
+                            <input type="text" id="clinicNumber" name='clinicNumber' class="form-control" required value="<%= vetData.clinicNumber %>">
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <div class="form-group">
+                            <label for="operatingHour" class="form-label fs-6">Opening Hour:<span class="small text-secondary">(24 hr format)</span> </label>
+                            <input type="text" id="operatingHour" name='operatingHour[start]' class="form-control" required value="<%= vetData.operatingHour.start %>">
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <div class="form-group">
+                            <label for="operatingHour" class="form-label fs-6">Closing Hour:<span class="small text-secondary">(24 hr format)</span></label>
+                            <input type="text" id="operatingHour" name='operatingHour[end]' class="form-control" required value="<%= vetData.operatingHour.end %>">
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row justify-content-around mb-3">
+                    <div class="col-md-5 mb-3">
+                        <div class="form-group">
+                            <label for="city" class="form-label fs-6">City: </label>
+                            <input type="text" id="city" name='city' class="form-control" required value="<%= vetData.city %>">
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5 mb-3">
+                        <div class="form-group">
+                            <label for="state" class="form-label fs-6">State: </label>
+                            <input type="text" id="state" name='state' class="form-control" required value="<%= vetData.state %>">
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row justify-content-around  mb-3">
+                    <div class="col-md-5 mb-3">
+                        <label for="clinicAddress" class="form-label fs-6">ClinicAddress: </label>
+                        <div class="form-floating">
+                            <textarea class="form-control" placeholder="Leave a comment here" id="clinicAddress"
+                                name='clinicAddress'><%= vetData.clinicAddress %></textarea>
+                            <label for="clinicAddress" class="form-label fs-6">Address </label>
+                        </div>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                    </div>
+                    <div class="col-md-5 mb-3">
+                        <div class="form-group">
+                            <label for="email" class="form-label fs-6">Email: </label>
+                            <input type="email" id="email" name='email' class="form-control" required value="<%= vetData.email %>">
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <button class="btn btn-md btn-success w-100">Submit</button>
+            </form>
+
+        </section>
+    </main>
+    <script>
+
+    </script>

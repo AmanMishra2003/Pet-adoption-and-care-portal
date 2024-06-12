@@ -1,0 +1,32 @@
+<%- layout('/layout/boilerplate3.ejs') %>
+
+<main class="my-5 mx-4">
+    <p class="h2">Profile</p>
+    <p class="my-3"><a href="/profile" class="text-decoration-none text-dark">Dashboard</a> · <a href="/profile" class="text-decoration-none text-dark"><span class=""></span>Profile</span></a> · <a href="/profile" class="text-decoration-none text-secondary"><span class="text-muted "></span>Pet Request</span></a></p>
+    <section>
+        <% pets.forEach(element => { %>
+            
+            <div class="card w-100 d-flex flex-row align-items-center text-white bg-dark my-3">
+                <div class="w-25">
+                    <img src="<%= element.image %>" alt="" srcset="" class="img-fluid w-100" style="height: 200px; object-fit: cover; object-position:center">
+                </div>
+                <div class="card-body border-end">
+                     <p class="h3 text-capitalize"><%= element.name %></p> <p class=" fs-6"><%= element.posted_on %></p>
+                     <p class="fs-6 text-capitalize "><%= element.gender %></p> <p  class=" fs-6"><%= element.type %></p>
+                </div>
+                <div class=" d-flex flex-column text-center mx-4">
+                    <div>
+                        <a href="/profile/<%= element._id %>/applicants" class=" my-3 btn btn-lg btn-outline-warning">See Applicants</a>
+                    </div>
+                    <!-- <div>
+                        <a href="/user/event/<%= //element._id %>/participant" class=" my-3 btn btn-lg btn-outline-primary">Registered Participants </a>
+                    </div> -->
+                    
+                </div>
+                
+            </div>
+        <%}) %>
+        
+    </section>
+    
+</main>

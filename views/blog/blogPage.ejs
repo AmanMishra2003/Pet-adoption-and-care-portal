@@ -1,0 +1,175 @@
+<%- layout('/layout/boilerplate.ejs') %>
+    <style>
+        .blogPage_bg {
+            height: 40vh;
+            width: 100vw;
+            position: relative;
+            margin-bottom: 35vh;
+        }
+
+        .blogPage_bg::before {
+            content: "";
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            background: url('https://i.pinimg.com/474x/ab/16/8b/ab168b2a7a8a348bf0b91f3eef2e53c6.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            z-index: 10;
+        }
+
+        .heading {
+            min-width: 80% !important;
+            min-height: 80% !important;
+            z-index: 100;
+            left: 50% !important;
+            transform: translateX(-50%);
+            border-radius: 50px !important;
+            background: #f68e2dfe !important;
+            box-shadow: -20px 20px 60px #e7b77d,
+                20px -20px 60px #ffffff !important;
+        }
+
+        .blog-container {
+            position: relative;
+            width: 100%;
+            columns: 4;
+        }
+
+        .container-box {
+            position: relative;
+            /* width: 50%; */
+        }
+
+        .image {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: .5rem !important;
+        }
+
+        .overlay {
+            position: absolute !important;
+            top: 0 !important;
+            bottom: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            height: 100% !important;
+            width: 100% !important;
+            opacity: 0 !important;
+            transition: .5s ease !important;
+            background-color: rgb(243, 141, 39) !important;
+        }
+
+        .container-box:hover .overlay {
+            opacity: .8 !important;
+        }
+
+        .text {
+            color: white !important;
+            font-size: 20px !important;
+            position: absolute !important;
+            top: 50% !important;
+            left: 40% !important;
+            -webkit-transform: translate(-50%, -50%) !important;
+            -ms-transform: translate(-50%, -50%) !important;
+            transform: translate(-50%, -50%) !important;
+            /* text-align: center !important; */
+        }
+
+        @media(max-width: 900px) {
+            .heading {
+                min-width: 100% !important;
+                left: 0% !important;
+                transform: translateX(0%);
+                top: 10% !important;
+            }
+            .blog-container {
+                position: relative;
+                width: 100%;
+                columns: 2;
+            }
+            .blogPage_bg{
+                margin-bottom: 10vh;
+            }
+        }
+        @media(max-width: 400px) {
+            .blog-container {
+                position: relative;
+                width: 100%;
+                columns: 1;
+            }
+        }
+        .btn-lg:hover {
+            background-color: white !important;
+        }
+    </style>
+    <main class="">
+        <div class="blogPage_bg position-relative">
+            <div
+                class="container position-absolute top-50 heading text-white d-flex  justify-content-center align-items-center px-5">
+                <div>
+                    <p>Our Latest Blog</p>
+                    <p class="h3">
+                        "Exploring Pet Care: Insights, Tips, and Stories for Happy and Healthy Pets"</p>
+
+                    <% if (!currentUser || !currentAdmin) { %>
+                        <div>
+                            <a href="/blog/new" class=" btn btn-lg text-white border-white" >Add Blogs</a>
+                        </div>
+                    <% } %>
+                    
+                </div>
+                <div>
+                    <img src="/images/blog-img.png" alt="" class="img-fluid">
+                </div>
+            </div>
+        </div>
+
+        <section class="one container-fluid border-top border-dark ">
+            <h1 class="text-center my-3" style="color: #f07c1e;">Blogs</h1>
+
+
+
+            <div class="container-lg mb-5 h-100">
+                <div class="blog-container ">
+                    <% data.forEach(d=> { %>
+                        <!-- <div class="card-md-3 "> -->
+                        <div class=" container-box mb-4">
+                            <!-- <div class="card-head"> -->
+                            <img src="<%= d.img %>" class=" rounded card-img-top img-fluid" alt="...">
+                            <!-- </div> -->
+                            <div class=" overlay rounded text-white  " >
+                                <div class="text d-flex flex-column justify-content-between h-50">
+                                    <h3 class="card-title fs-4">
+                                        <%= d.title %>
+                                    </h3>
+                                    <!-- <p class="card-text mb-0 fs-5">
+                                        <%= //d.metaTitle %>
+                                    </p> -->
+    
+    
+                                    <!-- <p class="card-text"><small class="text-muted">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Id, totam!</small></p> -->
+                                    <div>
+                                        <p class="card-text fs-6">
+                                            <%=`${d.date.getFullYear()}-${d.date.getMonth()+1}-${d.date.getDate()}`%>
+                                        </p>
+                                        <a href="/blog/<%=d._id %>" class="btn btn-primary text-white bg-dark">View
+                                            <span class="text-white"></span></a>
+                                    </div>
+                                </div>
+                            </div>
+    
+                        </div>
+    
+                        <% }) %>
+                </div>
+        </div>
+            <!-- <div class="row"> -->
+
+            <!-- </div>
+            </div>
+            </div> -->
+
+        </section>
+    </main>

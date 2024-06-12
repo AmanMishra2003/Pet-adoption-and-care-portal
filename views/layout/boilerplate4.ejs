@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <div class="w-100 bg-dark m-0 px-5 d-flex align-items-center justify-content-between">
+        <div class="">
+            <a href="/"><img src="/images/bg-remove.png" alt="" class="img-fluid" style="height: 80px !important;"></a>
+        </div>
+        <div class="text-white h5">
+            Admin Dashboard
+        </div>
+
+    </div>
+    <div class="container-fluid fs-5">
+        <div class="row flex-nowrap ">
+            <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-white border-end ">
+                <div class="d-flex flex-column align-items-center  align-items-sm-start ps-3 pt-2 text-white min-vh-100">
+                    <div class="border-bottom border-dark py-3 bg-white w-100  d-flex  justify-content-center ">
+                        <div style="height: 150px; border-radius: 50%;">
+                            <img src="https://i.pinimg.com/474x/4e/22/be/4e22beef6d94640c45a1b15f4a158b23.jpg" alt="" class="img-fluid h-100 w-100" style="object-fit: cover;" >
+                        </div>
+                    </div>
+                    <ul class="nav nav-pills flex-column border-bottom border-dark mb-0 align-items-start align-items-sm-star w-100"
+                        id="menu">
+                        <li class="nav-item py-2">
+                            <a href="/admin/profile" class="nav-link align-middle px-0">
+                                <span class="ms-1 d-inline text-dark fs-6">Home</span>
+                            </a>
+                        </li>
+                        <li class="nav-item py-2">
+                            <a href="/admin/profile/event" class="nav-link align-middle px-0">
+                                <span class="ms-1 d-inline text-dark fs-6">Events</span>
+                            </a>
+                        </li>
+                        <li class="nav-item py-2">
+                            <a href="/admin/profile/petapproval" class="nav-link align-middle px-0">
+                                <span class="ms-1 d-inline text-dark fs-6">Pet Approval</span>
+                            </a>
+                        </li>
+                        <li class="nav-item py-2">
+                            <a href="/admin/profile/blogapproval" class="nav-link align-middle px-0">
+                                <span class="ms-1 d-inline text-dark fs-6">Blog Approval</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle text-white">
+                                <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-inline text-dark fs-6"> Vet</span> <span class="rotate">-></span></a>
+                            <ul class="collapse show nav flex-column ms-4" id="submenu1" data-bs-parent="#menu">
+                                <li>
+                                    <a href="/admin/profile/allvet" class="nav-link px-0"> <span class="ms-1 d-inline text-dark fs-6">All Vet</span></a>
+                                </li>
+                                <li class="w-100">
+                                    <a href="/admin/profile/addvet" class="nav-link px-0"> <span class="ms-1 d-inline text-dark fs-6">Add Vet</span></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- <li class="nav-item py-2">
+                            <a href="/addpet" class="nav-link align-middle px-0">
+                                <span class="ms-1 d-inline text-dark fs-6">Add Pet</span>
+                            </a>
+                        </li>
+                        <li class="nav-item py-2">
+                            <a href="/blog/new" class="nav-link align-middle px-0">
+                                <span class="ms-1 d-inline text-dark fs-6">Add Blog</span>
+                            </a>
+                        </li>
+                        <li class="nav-item py-2">
+                            <a href="/profile/petrequest" class="nav-link align-middle px-0">
+                                <span class="ms-1 d-inline text-dark fs-6">Pet Request</span>
+                            </a>
+                        </li> -->
+                        <!-- <li>
+                        <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Dashboard</span> </a>
+                        <ul class="collapse show nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
+                            <li class="w-100">
+                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 1 </a>
+                            </li>
+                            <li>
+                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 2 </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Orders</span></a>
+                    </li>
+                    <li>
+                        <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
+                            <i class="fs-4 bi-bootstrap"></i> <span class="ms-1 d-none d-sm-inline">Bootstrap</span></a>
+                        <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
+                            <li class="w-100">
+                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 1</a>
+                            </li>
+                            <li>
+                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 2</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline">Products</span> </a>
+                            <ul class="collapse nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">
+                            <li class="w-100">
+                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product</span> 1</a>
+                            </li>
+                            <li>
+                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product</span> 2</a>
+                            </li>
+                            <li>
+                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product</span> 3</a>
+                            </li>
+                            <li>
+                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product</span> 4</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Customers</span> </a>
+                    </li>-->
+                    </ul>
+                    <div class=" py-3">
+                        <a  href="/admin/logout" class="btn btn-md btn-outline-success">Sign out</a>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col py-3">
+                <%- include('../partials/flash.ejs') %>
+                <%- body %>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+        <script src="/js/validation.js"></script>
+</body>
+
+</html>

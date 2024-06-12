@@ -1,0 +1,171 @@
+<%layout(' ../../layout/boilerplate2.ejs') %>
+    <style>
+
+    </style>
+    <main class="bg py-5 ">
+        <section class="container bg-white px-5 py-3 rounded">
+            <h1 
+                class=""
+                style="color: orange !important;">
+                    Appointment
+            </h1>
+
+            <form action="/vet/appointment/success" method="POST" class="needs-validation" novalidate>
+                <div class="py-3 px-2 border-bottom border-dark">
+                    <p class="h4">Clinic: </p>
+                    <div class="row justify-content-around mb-3">
+                        <div class="col-md-5 mb-3">
+                            <div class="form-group">
+                                <label for="clinicName" class="form-label">Clinic Name: </label>
+                                <input type="text" id="clinicName" name='vet[clinicName]' class="form-control"
+                                    value="<%=data.clinicName%>" readonly="readonly">
+                            </div>
+                        </div>
+                        <div class="col-md-5  mb-3 mb-md-0">
+                            <div class="form-group">
+                                <label for="name" class="form-label">Vet Name: </label>
+                                <input type="text" id="name" name='vet[name]' class="form-control"
+                                    value="<%=data.name%>" readonly="readonly">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row justify-content-around mb-3">
+                        <div class="col-md-5 mb-3 mb-md-0">
+                            <div class="form-group">
+                                <label for="vetEmail" class="form-label">Vet Email: </label>
+                                <input type="text" id="vetEmail" name='vet[vetEmail]' class="form-control"
+                                    value="<%=data.email %>" readonly="readonly">
+                            </div>
+                        </div>
+                        <div class="col-md-5 mb-3 mb-md-0">
+                            <div class="form-group">
+                                <label for="clinicAddress" class="form-label">Clinic Address: </label>
+                                <input type="text" id="clinicAddress" name='vet[clinicAddress]' class="form-control"
+                                    value="<%=data.clinicAddress %>" readonly="readonly">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-around mb-3">
+                        <div class="col-md-5 mb-3 mb-md-0">
+                            <div class="form-group">
+                                <label for="number" class="form-label">Clinic Number: </label>
+                                <input type="text" id="number" name='vet[number]' class="form-control"
+                                    value="<%=data.clinicNumber %>" readonly="readonly">
+                            </div>
+                        </div>
+                        <div class="col-md-5 mb-3 mb-md-0">
+                            <div class="form-group">
+                                <label for="id" class="form-label">Vet Id: </label>
+                                <input type="text" id="id" name='vet[id]' class="form-control" value="<%=data.id %>"
+                                    readonly="readonly">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="py-3 px-2">
+                    <p class="h4 text-capitalize"> Fill Details for appointment: </p>
+                    <div class="row justify-content-around mb-3">
+                        <div class="col-md-5 mb-3 mb-md-0">
+                            <div class="form-group">
+                                <label for="name" class="form-label">Name: </label>
+                                <input type="text" id="name" name='name' class="form-control" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                  </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5 mb-3 mb-md-0">
+                            <div class="form-group">
+                                <label for="email" class="form-label">Email: </label>
+                                <input type="email" id="email" name='email' class="form-control" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                  </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row justify-content-around mb-3">
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label for="date" class="form-label text-capitalize">select appointment Date: </label>
+                                <input type="date" id="date" name='date' class="form-control" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                  </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5 mb-3 mb-md-0">
+                            <div class="form-group">
+                                <label for="time" class="form-label">Appointment Time: </label>
+                                <select class="form-select w-75" aria-label="Default select example" name="time"
+                                    id="time" required>
+                                    <% for( let index=data.operatingHour.start; index <=data.operatingHour.end; index++) { %>
+                                        <option value="<%= index %>:00 - <%= index+1 %>:00">
+                                            <%= index %>:00 - <%= index+1 %>:00
+                                        </option>
+                                        <% } %>
+                                </select>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                  </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center mb-3">
+                        <div class="col-md-5  mb-3 mb-md-0">
+                            <div class="form-group">
+                                <label for="animal" class="form-label">animal: </label>
+                                <select class="form-select w-75" aria-label="Default select example" name="animal" required
+                                    id="animal">
+                                    <option value="dog">Dog</option>
+                                    <option value="cat">Cat</option>
+                                </select>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                  </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 mb-3 mb-md-0">
+                            <div class="form-group">
+                                <label for="petname" class="form-label">Pet Name: </label>
+                                <input type="text" id="petname" name='petname' class="form-control" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                  </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3 mb-md-0">
+                            <div class="form-group">
+                                <label for="phone" class="form-label">Phone number: </label>
+                                <input type="text" id="phone" name='phone' class="form-control" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                  </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-around mb-3">
+                    <div class="col-md-11 mb-3 mb-md-0">
+                        <div class="form-floating">
+                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
+                                style="height: 100px" name="description" required></textarea>
+                            <label for="floatingTextarea2">Enter Description for appoinment</label>
+                            <div class="valid-feedback">
+                                Looks good!
+                              </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                </div>
+
+                <button type="submit" class="btn btn-success w-100">Submit</button>
+
+            </form>
+        </section>
+    </main>

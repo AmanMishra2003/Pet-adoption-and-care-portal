@@ -1,0 +1,40 @@
+.row{
+    height: 100vh !important;
+    width: 100vw !important;
+}
+
+.img>a>img{
+    height: 150px;
+}
+
+button{
+    background-color: rgb(247, 97, 43) !important;
+}
+button:hover{
+    background-color: rgb(247, 247, 247) !important;
+    color: rgb(247, 97, 43)  !important;
+    outline: 2px solid rgb(247, 97, 43) !important;
+}
+.bg-img1{
+    background: url("https://i.pinimg.com/474x/f6/fc/2d/f6fc2dec181e6b4c183952d15b1620ec.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.bg-img2{
+    background: url("https://i.pinimg.com/474x/c4/e0/5c/c4e05cca5588d228f5fda10d7e19c478.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+.bg-img3{
+    background: url("https://i.pinimg.com/474x/9a/ed/87/9aed874dc0796dbb1540b1d9d2077714.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+.bg-img4{
+    background: url("https://i.pinimg.com/474x/c5/a6/69/c5a66953ce8d441013a681af9cc32634.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
