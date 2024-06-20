@@ -1,0 +1,64 @@
+<%layout(' ../../layout/boilerplate3.ejs') %>
+<main style="padding: 4% 0;" class="container-fluid h-100 ">
+    <p class="h2">Profile</p>
+    <p class=" my-3"><a href="/profile" class="text-decoration-none text-dark ">Dashboard</a> · <a href="/profile" class="text-decoration-none text-dark">Profile</a> · <a href="/profile/myappointment" class="text-decoration-none text-dark"><span class="text-dark"> My Appointments</span></a>  ·  <a href="/profile/myappointment/<%=data.id%>" class="text-decoration-none text-dark"><span class="text-muted">Appointment</span></a></p>
+
+    <div class="container  py-3 px-4 " >
+            <table class="table table-stripedtable-hover w-100">
+                  <tr>
+                    <th scope="row">Appointment Id:</th>
+                    <td colspan="5"><%=data.id%></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Name:</th>
+                    <td colspan="5"><%=data.name%></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Pet Name:</th>
+                    <td colspan="5"><%= data.petname%></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Pet:</th>
+                    <td colspan="5"><%= data.animal%></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Date:</th>
+                    <td colspan="5"><%= `${data.date.getFullYear()}-0${data.date.getMonth()+1}-${data.date.getDate()} `%></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Time:</th>
+                    <td colspan="5"><%= data.time%></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Email:</th>
+                    <td colspan="5"><%=data.email%></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Phone Number:</th>
+                    <td colspan="5"><%=data.phone%></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Symptoms description: </th>
+                    <td colspan="5"><%= data.description%></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Vet Name: </th>
+                    <td colspan="5"><%= data.vet.name%></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Clinic Name: </th>
+                    <td colspan="5"><%= data.vet.clinicName%></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Clinic Address: </th>
+                    <td colspan="5"><%= data.vet.clinicAddress%></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Clinic Contact: </th>
+                    <td colspan="5"><%=data.vet.number%></td>
+                  </tr>
+
+              </table>
+        
+    </div>
+</main>

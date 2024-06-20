@@ -113,7 +113,7 @@
                     <p class="h3">
                         "Exploring Pet Care: Insights, Tips, and Stories for Happy and Healthy Pets"</p>
 
-                    <% if (!currentUser || !currentAdmin) { %>
+                    <% if (currentUser) { %>
                         <div>
                             <a href="/blog/new" class=" btn btn-lg text-white border-white" >Add Blogs</a>
                         </div>

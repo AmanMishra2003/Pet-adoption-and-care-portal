@@ -51,13 +51,34 @@
 
         </div>
     </div>
-    <div class="data my-5 py-5 rounded" style="background-color: rgb(245, 222, 189);">
-        <p class="h5 text-center">Total Data Collected</p>
-        <canvas id="myChart" class="container my-5 bg-white w-75"></canvas>
+    <div class="data my-5 py-5 rounded" >
+        <p class="h5">Total Data Collected</p>
+        <!-- <canvas id="myChart" class="container my-5 bg-white w-75"></canvas> -->
+         
+        <div class="row justify-content-center">
+          <div class="col-md-5 px-4 py-3 rounded mx-md-3 my-3 " style="background-color: rgb(245, 222, 189);">
+            <p class="fs-6">Pet Registered</p>
+            <p class="fs-4"><%= CountArr[0] %></p>
+          </div>
+          <div class="col-md-5 px-4 py-3 rounded mx-md-3 my-3" style="background-color: rgb(245, 222, 189);">
+            <p class="fs-6">Event Registered</p>
+            <p class="fs-4"><%= CountArr[1] %></p>
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-md-5  px-4 py-3 rounded mx-md-3 my-3 " style="background-color: rgb(245, 222, 189);">
+            <p class="fs-6">Blog Registered</p>
+            <p class="fs-4"><%= CountArr[2] %></p>
+          </div>
+          <div class="col-md-5 px-4 py-3 rounded mx-md-3 my-3" style="background-color: rgb(245, 222, 189);">
+            <p class="fs-6">Vet Registered</p>
+            <p class="fs-4"><%= CountArr[3] %></p>
+          </div>
+        </div>
     </div>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
+    <!-- <script>
         const ctx = document.getElementById('myChart');
       
         new Chart(ctx, {
@@ -66,7 +87,7 @@
             labels: ['Pet Registered', 'Event Registered', 'Blog Registered', 'Vet Registered'],
             datasets: [{
               label: '# of Votes',
-              data: <%- JSON.stringify(CountArr)%>,
+              data: <%- //JSON.stringify(CountArr)%>,
               backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(255, 159, 64, 0.2)',
@@ -91,5 +112,5 @@
           },
           
         });
-      </script>
+      </script> -->
       

@@ -5,8 +5,8 @@ const router = express.Router();
 
 
 // models
-const Event = require('../model/event_model')
-const User = require('../model/users')
+const Event = require('../model/event_model.js')
+const User = require('../model/users.js')
 
 //middleware
 const {isLoggedIn} = require('../middleware.js')

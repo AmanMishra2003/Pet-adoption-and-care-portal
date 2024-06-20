@@ -31,15 +31,15 @@
           
         </ul>
         <div class=" mx-auto">
-            <% if ( !currentUser || !currentAdmin) { %>
-              <% if (currentUser) { %>
-                <a class="btn btn-lg btn-warning text-white" href="/profile">Profile</a>
-                 <% } else { %>
-                  <a class="btn btn-lg btn-warning text-white" href="/admin/profile">Profile</a>
-              <% } %>
-            <%} else { %> 
+            <% if (!currentUser) { %>
               <a class="btn btn-md btn-warning text-white" href="/login">Login</a>
               <a class="btn btn-md btn-warning text-white" href="/register">Register</a>
+            <%} else { %> 
+                <% if (currentUser.role==='user') { %>
+                  <a class="btn btn-lg btn-warning text-white" href="/profile">Profile</a>
+                <% } else { %>
+                    <a class="btn btn-lg btn-warning text-white" href="/admin/profile">Profile</a>
+                <% } %>
             <%} %>
         </div>
       </div>

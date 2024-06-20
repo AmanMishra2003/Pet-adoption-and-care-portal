@@ -145,10 +145,14 @@
             <div class="row align-items-center">
                 <div class="col-12">
                     <p class="fw-bold" style="font-size: 1.25rem;">Name : <span class="fw-light"><%=data.owner_detail.name%></span></p>
+                    <% if (currentUser && currentUser.role==='admin') { %>
+                        <p class="fw-bold" style="font-size: 1.25rem;">Number : <span class="fw-light"><%=data.owner_detail.number%></span></p>
+                        <p class="fw-bold" style="font-size: 1.25rem;">Address : <span class="fw-light"><%=data.owner_detail.address%></span></p>
+                        <p class="fw-bold" style="font-size: 1.25rem;">Email : <span class="fw-light"><%=data.owner_detail.email%></span></p>
+                    <% }else{ %>
                     <a href="/adopt/<%= data._id %>/adoptapplication" class="btn btn-lg btn-success text-white w-100">Apply for Adoption</a>
+                    <% } %>
                 </div>
-              
-               
             </div>
         </div>
 

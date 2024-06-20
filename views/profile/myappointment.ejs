@@ -1,0 +1,88 @@
+<%layout(' ../../layout/boilerplate3.ejs') %>
+
+    <main class="my-5 mx-4">
+        <p class="h2">Profile</p>
+        <p class=" my-3"><a href="/profile" class="text-decoration-none text-dark ">Dashboard</a> · <a href="/profile" class="text-decoration-none text-dark">Profile</a> · <a href="/profile/myappointment" class="text-decoration-none text-dark"><span class="text-muted"> My Appointments</span></a></p>
+    
+        <% if ((appointment_upcoming.length)!==0) { %>
+            <div class="row  my-5">
+                <div class="col">
+                    <p class="h5 py-3 border-bottom border-danger">Upcoming :-</p>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Pet</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Clinic</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody class="w-100">
+                            <% appointment_upcoming.forEach(ele=> { %>
+                                <tr>
+                                    <th scope="row"><%= appointment_upcoming.indexOf(ele)+1 %></th>
+                                    <td class="text-bold">
+                                        <%=ele.petname %>
+                                    </td>
+                                    <td class="text-muted">
+                                        <%=`${ele.date.getDate()} /${ele.date.getMonth()+1}/${ele.date.getFullYear()}` %>
+                                    </td>
+                                    <td class="text-muted"><%=ele.vet.clinicName %></td>
+                                    <td>
+
+                                        <a href="/profile/appointment/<%= ele._id %>" class="text-decoration-none">🔗</a>
+
+                                </td>
+
+                                    
+                                </tr>
+                                <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        <% } %>
+        <% if ((appointment_passed.length)!==0) { %>
+            <div class="row  my-5">
+                <div class="col">
+                    <p class="h5 py-3 border-bottom border-danger">Passed :-</p>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Pet</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Clinic</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody class="w-100">
+                            <% appointment_passed.forEach(ele=> { %>
+                                <tr>
+                                    <th scope="row"><%= appointment_passed.indexOf(ele)+1 %></th>
+                                    <td class="text-bold">
+                                        <%=ele.petname %>
+                                    </td>
+                                    <td class="text-muted">
+                                        <%=`${ele.date.getDate()} /${ele.date.getMonth()+1}/${ele.date.getFullYear()}` %>
+                                    </td>
+                                    <td class="text-muted"><%=ele.vet.clinicName %></td>
+                                    <td>
+
+                                        <a href="/profile/appointment/<%= ele._id %>" class="text-decoration-none">🔗</a>
+
+                                </td>
+
+                                    
+                                </tr>
+                                <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        <% } %>
+
+</main>

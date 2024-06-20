@@ -5,7 +5,8 @@ const Schema = mongoose.Schema;
 const userSchema = Schema({
     role:{
         type:String,
-        default:'user'
+        default:'user',
+        enum:['admin', 'user']
     },
     profile:{
         type:Schema.Types.ObjectId,

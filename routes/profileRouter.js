@@ -3,10 +3,11 @@ const asyncHandler = require('express-async-handler')
 const router = express.Router()
 
 //model
-const User = require('../model/users');
-const Profile = require('../model/profile');
-const Pet = require('../model/pet-model');
-const Adoption = require('../model/adoption');
+const User = require('../model/users.js');
+const Profile = require('../model/profile.js');
+const Pet = require('../model/pet-model.js');
+const Adoption = require('../model/adoption.js');
+const Appointment = require('../model/appointment_model');
 
 //module
 const  {transporter} = require('../mail/mail.js');
@@ -98,6 +99,19 @@ router.patch('/:id/applicants/decline',isLoggedIn,asyncHandler(async (req,res,ne
     await pet.save()
     req.flash('error', `Approval Decline for Person: ${applicant.name} `)
     res.redirect(`/profile/${applicant.pet._id}/applicants`)
+}))
+
+router.get('/myappointment',isLoggedIn,asyncHandler(async (req,res)=>{
+    const tdate = new Date()
+    const appointment_upcoming = await Appointment.find({author : req.user._id, date: {$gt:tdate}})
+    const appointment_passed = await Appointment.find({author : req.user._id, date: {$lte:tdate}})
+    console.log(appointment_upcoming)
+    res.render('profile/myappointment',{appointment_upcoming,appointment_passed })
+}))
+router.get('/appointment/:id',isLoggedIn,asyncHandler(async (req,res)=>{
+    const {id} =req.params
+    const data = await Appointment.findById(id)
+    res.render('profile/appointmentpage', { data })
 }))
 
 module.exports = router

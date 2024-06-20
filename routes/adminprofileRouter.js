@@ -3,26 +3,27 @@ const asyncHandler = require('express-async-handler')
 const router = express.Router();
 
 //models
-const Admin = require('../model/adminModel');
-const Profile = require('../model/profile');
-const Event = require('../model/event_model');
-const Pet = require('../model/pet-model');
-const Blog = require('../model/blog_model');
-const User = require('../model/users');
-const Vet = require('../model/vet_model');
+// const User = require('../model/users');
+const Profile = require('../model/profile.js');
+const Event = require('../model/event_model.js');
+const Pet = require('../model/pet-model.js');
+const Blog = require('../model/blog_model.js');
+const User = require('../model/users.js');
+const Vet = require('../model/vet_model.js');
 
 //modules
-const  {transporter} = require('../mail/mail');
-const  {template} = require('../mail/templateApprovalAndDecline');
+const  {transporter} = require('../mail/mail.js');
+const  {template} = require('../mail/templateApprovalAndDecline.js');
 const {isLoggedInAdmin} = require('../middleware.js')
 
 router.get('/',isLoggedInAdmin,asyncHandler(async (req,res,next)=>{
-    const user = await Admin.findOne(req.user).populate('profile')
+    const user = await User.findOne(req.user).populate('profile')
     const petCount = await Pet.find({isApproved:true}).count()
     const eventCount = await Event.find({}).count()
     const blogCount = await Blog.find({isApproved:true}).count()
     const vetCount = await Vet.find({}).count()
     const CountArr = [petCount,eventCount,blogCount,vetCount]
+    console.log(user)
     res.render('admin/profile.ejs',{user,CountArr})
 }))
 router.get('/new',isLoggedInAdmin,asyncHandler(async (req,res,next)=>{
@@ -33,7 +34,7 @@ router.post('/new',isLoggedInAdmin,asyncHandler(async (req,res,next)=>{
     const profileData = new Profile(req.body);
    
     // console.log(profileData)
-    const admin = await Admin.findOne(req.user);
+    const admin = await User.findOne(req.user);
     admin.profile = profileData;
     await profileData.save();
     await admin.save();
