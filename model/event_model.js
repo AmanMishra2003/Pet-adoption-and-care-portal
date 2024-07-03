@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
+const {imageSchema} = require('./imageSchema')
 const Schema = mongoose.Schema
-
 
 
 const eventSchema = Schema({
@@ -8,10 +8,7 @@ const eventSchema = Schema({
         type: String,
         required: true
     },
-    img:{
-        type: String,
-        required:true
-    },
+    img:imageSchema,
     date:{
         type:Date,
         required:true

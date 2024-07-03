@@ -69,7 +69,7 @@ module.exports = {
                     <p>Owner Details:</p>
                     <ul>
                         <li><strong>Name:</strong> ${ownerName}</li>
-                        <li><strong>Email:</strong> ${ownerEmail} year</li>
+                        <li><strong>Email:</strong> ${ownerEmail}</li>
                         <li><strong>Phone Number:</strong> ${ownerPhone}</li>
                     </ul>
                     <p>To proceed with the adoption, please schedule a meeting with Owner at your earliest convenience. </p>

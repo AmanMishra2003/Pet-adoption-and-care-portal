@@ -99,12 +99,24 @@
     <section class="container py-4 px-3 mb-4">
         <% if (currentUser) { %>
             <p class="h4">Leave A Review:</p>
+            <%- include('../partials/flash.ejs') %>
             <form action="/blog/<%= data.id %>/reviews" method="POST" class="my-3 needs-validation border-bottom pb-4"
                 novalidate>
                 <div class="mb-3 w-50">
-                    <label for="review" class="form-label">Rating: </label>
-                    <input type="range" name="review[rating]" id="review" min="1" max="5" class="form-range" value="0"
-                        required>
+                    <fieldset class="starability-heartbeat">
+                        <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="0" checked aria-label="No rating." />
+                        <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+                        <label for="first-rate1" title="Terrible">1 star</label>
+                        <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+                        <label for="first-rate2" title="Not good">2 stars</label>
+                        <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+                        <label for="first-rate3" title="Average">3 stars</label>
+                        <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+                        <label for="first-rate4" title="Very good">4 stars</label>
+                        <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+                        <label for="first-rate5" title="Amazing">5 stars</label>
+                      </fieldset>
+                      
                 </div>
                 <div class="mb-3">
                     <label for="review" class="form-label">Review: </label>
@@ -119,16 +131,20 @@
             <% data.reviews.forEach(r=> { %>
                 <div class="my-4 card scrollable">
                     <div class="card-body">
-                        <p class="card-title h5">Rating: <%= r.rating %>
-                        </p>
+                        <p class="sub-title small text-muted"><%= r.author.username %></p>
+                        <p class="starability-result" data-rating="<%= r.rating %>">
+                            Rated: <%= r.rating %> stars
+                          </p>
                         <p class="card-text">Review: <%= r.body %>
                         </p>
-                        <form action="/blog/<%= data.id %>/reviews/<%= r._id %>?_method=DELETE"
-                            method="POST">
-                            <button class=" btn btn-sm btn-danger" type="submit">
-                                Delete
-                            </button>
-                        </form>
+                        <% if (currentUser && currentUser.equals(r.author)) { %>
+                            <form action="/blog/<%= data.id %>/reviews/<%= r._id %>?_method=DELETE"
+                                method="POST">
+                                <button class=" btn btn-sm btn-danger" type="submit">
+                                    Delete
+                                </button>
+                            </form>
+                        <% } %>
                     </div>
                 </div>
             <% }) %>

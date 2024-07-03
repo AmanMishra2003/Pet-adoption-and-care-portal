@@ -10,7 +10,10 @@
                 <div class="col-3 d-flex justify-content-center align-items-start border-end border-dark">
                     <div class="bg-danger p-2 d-flex justify-content-center align-items-center h1"
                         style="height: 200px; width: 200px;">
-                        <%=user.username[0].toUpperCase() %>
+                        <% if (user.username) { %>
+                            <%=user.username[0].toUpperCase() %>
+                        <% } %>
+                        
                     </div>
                 </div>
                 <div class="col px-5">
@@ -177,7 +180,7 @@
                                     <td class="text-muted">
                                         <%=`${ele.date.getDate()} /${ele.date.getMonth()+1}/${ele.date.getFullYear()}` %>
                                     </td>
-                                    <td><a href="/events/<%= ele._id %>" class="text-decoration-none">🔗</a></td>
+                                    <td><a href="<%= ele.img.path %>" class="text-decoration-none">🔗</a></td>
                                 </tr>
                                 <% }) %>
                         </tbody>

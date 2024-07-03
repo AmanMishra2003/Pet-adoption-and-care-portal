@@ -10,7 +10,7 @@ const vetmodel = require('../model/vet_model')
 const appointment_model = require('../model/appointment_model');
 
 // middleware
-const {isLoggedIn} = require('../middleware.js')
+const {isLoggedIn, ValidateAppointment, doesVetExist} = require('../middleware.js')
 const { transporter } = require('../mail/mail.js');
 const { subjectClinic, templateClinic } = require('../mail/mailTemplateClinic.js');
 const { subjectPatient, templatePatient } = require('../mail/mailTemplatePatient.js');
@@ -35,20 +35,21 @@ router.get('/vetDetails',asyncHandler(async (req,res,next) => {
     res.render('vetcall/vets', { state, cities, details, obj })
 }))
 
-router.get('/:id/appointment',isLoggedIn, asyncHandler(async (req,res,next) => {
+router.get('/:id/appointment',isLoggedIn,doesVetExist, asyncHandler(async (req,res,next) => {
     const { id } = req.params
     const data = await vetmodel.findById(id)
     res.render('vetcall/appointment', { data })
 }))
 
-router.post('/appointment/success',isLoggedIn,asyncHandler(async (req,res,next) => {
+router.post('/appointment/success',isLoggedIn,ValidateAppointment,asyncHandler(async (req,res,next) => {
     const body = req.body;
     console.log(body)
     const user = await User.findById(req.user._id)
     const data = new appointment_model(body)
     data.author = user
     await data.save()
-    await createPdf(data, data.id)
+    const pdfFile = await createPdf(data, data.id)
+    // console.log()
     let dateFormat = ""
     if (data.date.getMonth() + 1 < 10) {
         if (data.date.getDate() < 10) {
@@ -78,7 +79,8 @@ router.post('/appointment/success',isLoggedIn,asyncHandler(async (req,res,next) 
         attachments: [
             {
                 filename: `${data.id}.pdf`,
-                path: `./mail/attachments/pdf/${data.id}.pdf`,
+                path: pdfFile,
+                // path: `./mail/attachments/pdf/${data.id}.pdf`,
                 contentType: 'application/pdf'
             }
         ]

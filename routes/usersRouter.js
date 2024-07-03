@@ -51,7 +51,6 @@ router.get('/logout',(req,res)=>{
 
 
 router.get('/', (req, res) => {
-    console.log(req.user)
     res.render('home')
 })
 

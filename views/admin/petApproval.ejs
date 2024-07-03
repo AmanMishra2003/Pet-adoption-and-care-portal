@@ -9,7 +9,9 @@
             
             <div class="card w-100 d-flex flex-row align-items-center text-white bg-dark my-5">
                 <div class="w-25">
-                    <img src="<%= element.image %>" alt="" srcset="" class="img-fluid w-100" style="height: 250px; object-fit: cover; object-position:center">
+                    <% if ( element.image) { %>
+                        <img src="<%= element.image.path %>" alt="" srcset="" class="img-fluid w-100" style="height: 250px; object-fit: cover; object-position:center">
+                    <% } %>
                 </div>
                 <div class="card-body border-end">
                      <p class="h3 text-capitalize"><%= element.name %></p> <p class=" fs-6"><%=`${element.posted_on.getDate()}/${element.posted_on.getMonth()+1}/${element.posted_on.getFullYear()}` %></p>
@@ -23,7 +25,7 @@
                         </form>
                     </div>
                     <div class="my-3">
-                        <form action="/profile/<%=element._id%>/petapproval/decline?_method=PATCH" method="POST">
+                        <form action="/admin/profile/<%=element._id%>/petapproval/decline?_method=PATCH" method="POST">
                             <button class="btn btn-lg btn-danger">Decline</button>
                         </form>
                     </div>

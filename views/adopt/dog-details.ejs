@@ -16,11 +16,11 @@
             <div id="carouselExampleControlsNoTouching" class="carousel slide" data-bs-touch="false" data-bs-interval="false" style="z-index: 0;">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img src="<%= data.img[0] %>" class="d-block w-100" alt="..." style="height:60vh; object-fit:contain; ">
+                        <img src="<%= data.img[0].path %>" class="d-block w-100" alt="..." style="height:60vh; object-fit:contain; ">
                     </div>
                   <% for( let i of data.img.slice(1,data.img.length)) { %>
                     <div class="carousel-item ">
-                        <img src="<%= i %>" class="d-block w-100" alt="..." style="height:60vh; object-fit:contain; ">
+                        <img src="<%= i.path%>" class="d-block w-100" alt="..." style="height:60vh; object-fit:contain; ">
                     </div>
                   <% } %>
                     
@@ -145,12 +145,12 @@
             <div class="row align-items-center">
                 <div class="col-12">
                     <p class="fw-bold" style="font-size: 1.25rem;">Name : <span class="fw-light"><%=data.owner_detail.name%></span></p>
-                    <% if (currentUser && currentUser.role==='admin') { %>
+                    <% if ((currentUser && currentUser.role==='admin') || (currentUser && currentUser.equals(data.author._id)) ) { %>
                         <p class="fw-bold" style="font-size: 1.25rem;">Number : <span class="fw-light"><%=data.owner_detail.number%></span></p>
                         <p class="fw-bold" style="font-size: 1.25rem;">Address : <span class="fw-light"><%=data.owner_detail.address%></span></p>
                         <p class="fw-bold" style="font-size: 1.25rem;">Email : <span class="fw-light"><%=data.owner_detail.email%></span></p>
                     <% }else{ %>
-                    <a href="/adopt/<%= data._id %>/adoptapplication" class="btn btn-lg btn-success text-white w-100">Apply for Adoption</a>
+                            <a href="/adopt/<%= data._id %>/adoptapplication" class="btn btn-lg btn-success text-white w-100">Apply for Adoption</a>
                     <% } %>
                 </div>
             </div>

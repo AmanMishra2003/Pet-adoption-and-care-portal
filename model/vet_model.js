@@ -1,12 +1,9 @@
 const mongoose  = require('mongoose')
-
+const {imageSchema} = require('./imageSchema')
 const Schema = mongoose.Schema
 
 const vetSchema = Schema({
-    img:{
-        type:String,
-        required:[true,'Image is required Field' ]
-    },
+    img:imageSchema,
     name: {
         type:String,
         required:[true,'name is required Field' ]
@@ -24,7 +21,7 @@ const vetSchema = Schema({
         required:[true,'qualification is required Field' ]
     },
     exp: {
-        type:String,
+        type: Number,
         required:[true,'exp is required Field' ]
     },
     clinicAddress: {

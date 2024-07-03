@@ -1,5 +1,6 @@
 <% layout('layout/boilerplate') %>
     <main class="w-100 h-100" style="z-index: -10;">
+        <%- include('../partials/flash.ejs') %>
         <div class="heading h2 text-secondary text-center p-3">
             Dog Available For Adoption
         </div>
@@ -7,7 +8,7 @@
             <div class="col-12  col-lg-3 p-4 px-4 ms-md-5 ms-3" >
                 <form action="/adopt" class="dog-image h-auto " style="border: 2px solid orange;" method="GET">
                     <div class="py-3 px-3">
-                        <button type="reset" class="btn text-white" style="background-color:rgb(232, 126, 13) !important;">🐶 Clear all filter</button>
+                        <a href="/adopt" class="btn text-white" style="background-color:rgb(232, 126, 13) !important;">🐶 Clear all filter</a>
                     </div>
                     <div class="py-3 px-3">
                         <label for="petType" class="p-1">Pet Type</label>
@@ -92,7 +93,9 @@
                     <!-- //3 -->
                     <% for( let d of details) { %>
                         <div class="col-12 col-md-3 card dog-image mx-2 mb-3">
-                            <img class="card-img-top" src="<%= d.image %>" alt="Card image cap" style="height: 200px; aspect-ratio:1/1; object-fit:contain;" >
+                            <% if (d.image) { %>
+                                <img class="card-img-top" src="<%= d.image.path %>" alt="Card image cap" style="height: 200px; aspect-ratio:1/1; object-fit:contain;" >
+                            <% } %>
                             <div class="card-body border-bottom">
                               <h5 class="card-title"><%= d.name %></h5>
                               <p class="card-text mb-0 text-secondary"><%= d.gender %>, <span class="Age"><%= d.age %></span> yrs</p>

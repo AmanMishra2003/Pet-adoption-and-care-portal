@@ -91,7 +91,7 @@
 
                         <div class=" container-box mb-4">
 
-                            <img src="<%= d.img %>" class=" rounded card-img-top img-fluid" alt="...">
+                            <img src="<%= d.img.path %>" class=" rounded card-img-top img-fluid" alt="...">
 
                             <div class=" overlay rounded text-white  " >
                                 <div class="text d-flex flex-column justify-content-between h-50">
@@ -105,7 +105,7 @@
                                         <p class="card-text fs-6">
                                             <%=`${d.date.getFullYear()}-${d.date.getMonth()+1}-${d.date.getDate()}`%>
                                         </p>
-                                        <a href="<%=d.img %>" class="btn btn-primary text-white bg-dark">View
+                                        <a href="<%=d.img.path %>" class="btn btn-primary text-white bg-dark">View
                                             <span class="text-white"></span></a>
                                     </div>
                                 </div>

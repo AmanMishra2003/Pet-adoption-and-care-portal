@@ -12,13 +12,13 @@
                 Add Vet to PetMatch:
             </h3>
 
-            <form action="/admin/profile/allvet/<%= vetData._id %>?_method=PUT" method="POST" class="needs-validation" novalidate>
+            <form action="/admin/profile/allvet/<%= vetData._id %>?_method=PUT" method="POST" class="needs-validation" enctype="multipart/form-data" novalidate>
                 <div class="py-3 px-2 ">
                     <div class="row justify-content-around mb-3">
                         <div class="col-md-5 mb-3">
                             <div class="form-group">
-                                <label for="img" class="form-label fs-6">Doctor Image: </label>
-                                <input type="text" id="img" name='img' class="form-control" value = "<%= vetData.img %>" required>
+                                <label for="formFile" class="form-label fs-6">Vet/Clinic Image: </label>
+                                <input class="form-control" type="file" id="formFile" name="imgVet" >
                                 <div class="valid-feedback">
                                     Looks good!
                                 </div>

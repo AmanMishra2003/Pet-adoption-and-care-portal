@@ -42,10 +42,6 @@ const blogRouter = require('./routes/blogRouter.js')
 const reviewRouter = require('./routes/reviewRouter.js');
 const donateRouter = require('./routes/donationRouter.js');
 
-
-
-
-
 const app = express()
 const port = 3000;
 
@@ -74,6 +70,7 @@ app.use(async (req, res, next) => {
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
     res.locals.currentUser = req.user;
+    res.locals.validationError = req.flash('validationError')
     next();
 })
 
@@ -119,8 +116,6 @@ app.use('/donate', donateRouter)
 
 
 app.use((err,req,res,next)=>{
-    // console.log(err)
-    // const {status=400} = err;
     res.render('error',{err})
 })
 

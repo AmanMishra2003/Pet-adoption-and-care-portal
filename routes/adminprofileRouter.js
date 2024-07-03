@@ -1,5 +1,6 @@
 const express = require('express')
 const asyncHandler = require('express-async-handler')
+const multer = require('multer')
 const router = express.Router();
 
 //models
@@ -14,7 +15,11 @@ const Vet = require('../model/vet_model.js');
 //modules
 const  {transporter} = require('../mail/mail.js');
 const  {template} = require('../mail/templateApprovalAndDecline.js');
-const {isLoggedInAdmin} = require('../middleware.js')
+const {isLoggedInAdmin,ValidateProfile, ValidateVet, doesProfileExist, doesVetExist } = require('../middleware.js');
+const { cloudinary, storage2 } = require('../cloudinary/index.js');
+const upload = multer({storage:storage2})
+
+
 
 router.get('/',isLoggedInAdmin,asyncHandler(async (req,res,next)=>{
     const user = await User.findOne(req.user).populate('profile')
@@ -23,14 +28,13 @@ router.get('/',isLoggedInAdmin,asyncHandler(async (req,res,next)=>{
     const blogCount = await Blog.find({isApproved:true}).count()
     const vetCount = await Vet.find({}).count()
     const CountArr = [petCount,eventCount,blogCount,vetCount]
-    console.log(user)
     res.render('admin/profile.ejs',{user,CountArr})
 }))
 router.get('/new',isLoggedInAdmin,asyncHandler(async (req,res,next)=>{
     res.render('admin/addprofile.ejs')
 }))
 
-router.post('/new',isLoggedInAdmin,asyncHandler(async (req,res,next)=>{
+router.post('/new',isLoggedInAdmin,ValidateProfile,asyncHandler(async (req,res,next)=>{
     const profileData = new Profile(req.body);
    
     // console.log(profileData)
@@ -43,16 +47,16 @@ router.post('/new',isLoggedInAdmin,asyncHandler(async (req,res,next)=>{
     res.redirect('/admin/profile')
 }))
 
-router.get('/:id/edit',isLoggedInAdmin,asyncHandler(async (req,res,next)=>{
+router.get('/:id/edit',isLoggedInAdmin,doesProfileExist,asyncHandler(async (req,res,next)=>{
     const {id} = req.params
     const data = await Profile.findById(id)
     res.render('admin/editprofile',{data})
 }))
 
-router.put('/:id',isLoggedInAdmin,asyncHandler(async (req,res,next)=>{
+router.put('/:id',isLoggedInAdmin,doesProfileExist,ValidateProfile,asyncHandler(async (req,res,next)=>{
     const {id} = req.params;
     await Profile.findByIdAndUpdate(id, req.body, {runValidation:true,new:true})
-    res.redirect('/profile')
+    res.redirect('/admin/profile')
 }))
 
 router.get('/event',isLoggedInAdmin,asyncHandler(async (req,res,next)=>{
@@ -65,7 +69,7 @@ router.get('/event',isLoggedInAdmin,asyncHandler(async (req,res,next)=>{
 
 router.get('/petapproval',isLoggedInAdmin,asyncHandler(async (req,res,next)=>{
     const data = await Pet.find({isApproved:false})
-    console.log(data)
+    // console.log(data)
     res.render('admin/petApproval',{data})
 }))
 
@@ -113,6 +117,14 @@ router.patch('/:id/petapproval/decline',isLoggedInAdmin,asyncHandler(async (req,
           console.log('Email sent: ' + info.response);
         }
       })
+    await cloudinary.uploader.destroy(data.image.filename)
+    if(data.img){
+      data.img.forEach(async(ele) => {
+        await cloudinary.uploader.destroy(ele.filename)
+      });
+    }
+    authorProfile.pets.pull(data)
+    await authorProfile.save()
     await data.deleteOne()
     req.flash('error',"Pet Has Been Declined")
     res.redirect('/admin/profile/petapproval')
@@ -120,7 +132,7 @@ router.patch('/:id/petapproval/decline',isLoggedInAdmin,asyncHandler(async (req,
 
 router.get('/blogapproval',isLoggedInAdmin,asyncHandler(async (req,res,next)=>{
     const data = await Blog.find({isApproved:false}).populate('author')
-    console.log(data)
+    // console.log(data)
     res.render('admin/blogApproval',{data})
 }))
 
@@ -169,6 +181,11 @@ router.patch('/:id/blogapproval/decline',isLoggedInAdmin,asyncHandler(async (req
           console.log('Email sent: ' + info.response);
         }
       })
+    if(data.img){
+      await cloudinary.uploader.destroy(data.img.filename)
+    }
+    authorProfile.blog.pull(data)
+    await authorProfile.save()
     await data.deleteOne()
     req.flash('error',"Blog Has Been Declined")
     res.redirect('/admin/profile/blogapproval')
@@ -178,8 +195,15 @@ router.get('/addvet',isLoggedInAdmin,(req,res,next)=>{
     res.render('admin/addVet.ejs')  
 })
 
-router.post('/addvet',isLoggedInAdmin,asyncHandler(async(req,res,next)=>{
+router.post('/addvet',isLoggedInAdmin,upload.single('imgVet'),ValidateVet,asyncHandler(async(req,res,next)=>{
+  // console.log(req.file)
     const vetData = new Vet(req.body)
+    if(req.file){
+      vetData.img = {
+        filename:req.file.filename,
+        path:req.file.path
+      }
+    }
     await vetData.save()
     req.flash('success','Vet added to Database')
     res.redirect('/admin/profile/addvet')
@@ -190,22 +214,40 @@ router.get('/allvet',isLoggedInAdmin,asyncHandler(async(req,res,next)=>{
     res.render('admin/allVet.ejs',{vetData})  
 }))
 
-router.get('/allvet/:id/edit',isLoggedInAdmin,asyncHandler(async(req,res,next)=>{
+router.get('/allvet/:id/edit',isLoggedInAdmin,doesVetExist,asyncHandler(async(req,res,next)=>{
     const {id} = req.params
     const vetData = await Vet.findById(id);
-    console.log(vetData)
+    // console.log(vetData)
     res.render('admin/editVet.ejs',{vetData})  
 }))
 
-router.put('/allvet/:id',isLoggedInAdmin,asyncHandler(async(req,res,next)=>{
+router.put('/allvet/:id',isLoggedInAdmin,doesVetExist,upload.single('imgVet'),ValidateVet,asyncHandler(async(req,res,next)=>{
     const {id} = req.params
+    const vet = await Vet.findById(id)
+    const currentVetImage = vet.img
     const vetData = await Vet.findByIdAndUpdate(id,req.body,{runValidators:true,new:true});
+    if(req.file){
+      if(req.file.fieldname==='imgVet'){
+        await cloudinary.uploader.destroy(currentVetImage.filename)
+        vetData.img = {
+          filename: req.file.filename,
+          path:req.file.path
+        }
+      }else{
+        vetData.img = currentVetImage
+      }
+    }
+    await vetData.save()
     req.flash('success','Vet Details Updated Successfully')
     res.redirect('/admin/profile/allvet')  
 }))
-router.delete('/allvet/:id',isLoggedInAdmin,asyncHandler(async(req,res,next)=>{
+router.delete('/allvet/:id',isLoggedInAdmin,doesVetExist,asyncHandler(async(req,res,next)=>{
     const {id} = req.params
-    const vetData = await Vet.findByIdAndDelete(id);
+    const vetData = await Vet.findById(id);
+    if(req.file){
+       await cloudinary.uploader.destroy(vetData.img.filename)
+    }
+    await vetData.deleteOne()
     req.flash('error','Vet Details Deleted')
     res.redirect('/admin/profile/allvet')  
 }))

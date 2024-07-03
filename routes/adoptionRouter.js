@@ -1,15 +1,20 @@
 const express = require('express');
 const asyncHandler = require('express-async-handler')
 const { indiaData } = require('../seeds/citydata.js')
+const {storage2, cloudinary} = require('../cloudinary')
+const multer = require('multer')
+const upload = multer({storage:storage2})
 
 const router = express.Router()
 
 // models
 const petModel = require('../model/pet-model.js');
 const User = require('../model/users.js');
+const Adoption = require('../model/adoption.js')
 
 // middleware
-const {isLoggedIn} = require('../middleware.js')
+const {isLoggedIn, ValidateAdoption,ValidatePet, doesPetExist,isPetAuthor} = require('../middleware.js')
+
 
 router.get('/', async (req, res) => {
     const param = req.query
@@ -30,9 +35,9 @@ router.get('/addpet',isLoggedIn, (req, res) => {
     res.render('adopt/addpet.ejs')
 })
 
-router.get('/:id', asyncHandler(async (req,res,next) => {
+router.get('/:id',doesPetExist, asyncHandler(async (req,res,next) => {
     const { id } = req.params;
-    const data = await petModel.findById(id)
+    const data = await petModel.findById(id).populate('applicants')
     // console.log(data)
     const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
     const date = `${data.posted_on.getDate()} ${monthNames[data.posted_on.getMonth()]} ${data.posted_on.getFullYear()} `
@@ -42,34 +47,75 @@ router.get('/:id', asyncHandler(async (req,res,next) => {
 }))
 
 
-router.get('/:id/edit',isLoggedIn, asyncHandler(async (req,res,next) => {
+router.get('/:id/edit',isLoggedIn,doesPetExist,isPetAuthor, asyncHandler(async (req,res,next) => {
     const { id } = req.params
     const data = await petModel.findById(id)
     res.render('adopt/editpet.ejs', { data })
 }))
 
-router.post('/',isLoggedIn,asyncHandler(async (req,res,next) => {
+router.post('/',isLoggedIn,upload.fields([{name:'image'},{name:'img'}]),ValidatePet,asyncHandler(async (req,res,next) => {
     const data = new petModel({ ...req.body, posted_on: new Date() });
+    if(req.files){
+        if(req.files.image){
+            data.image =req.files.image.map(ele=>({filename:ele.filename, path:ele.path}))[0]
+        }
+        if(req.files.img){
+            data.img = req.files.img.map(ele=>({filename:ele.filename, path:ele.path}))
+        }
+    }
     const user = await User.findOne(req.user);
     data.author = user;
     user.pets.push(data)
     await data.save();
     await user.save();
     req.flash('success', 'Pet Details Send To Admin For Review')
-    res.redirect('/addpet')
+    res.redirect('/adopt/addpet')
 }))
 
-router.put('/:id',isLoggedIn, asyncHandler(async (req,res) => {
+router.put('/:id',isLoggedIn,doesPetExist,isPetAuthor,upload.fields([{name:'image'},{name:'img'}]),ValidatePet, asyncHandler(async (req,res) => {
+    console.log(req.body)
     const { id } = req.params
-    await petModel.findByIdAndUpdate(id, { ...req.body, isApproved: false }, { runValidations: true, new: true })
+    const pet = await petModel.findById(id)
+    const currentProfilePhoto = pet.image;
+    const UpdatedPetDetails =  await petModel.findByIdAndUpdate(id, { ...req.body, isApproved: false }, { runValidations: true, new: true })
+   
+    if(req.body.deleteImages){
+        req.body.deleteImages.forEach(async(ele)=>{
+            await cloudinary.uploader.destroy(ele)
+        })
+        await UpdatedPetDetails.updateOne({$pull : {img : {filename : {$in : req.body.deleteImages}}}})
+    }
+    if(req.files){
+        if(req.files.image){
+            await cloudinary.uploader.destroy(currentProfilePhoto.filename)
+            UpdatedPetDetails.image =req.files.image.map(ele=>({filename:ele.filename, path:ele.path}))[0]
+        }else{
+            UpdatedPetDetails.image = currentProfilePhoto
+        }
+
+        if(req.files.img){
+            let newImages = req.files.img.map(ele=>({filename : ele.filename , path :ele.path}))
+            UpdatedPetDetails.img.push(...newImages)
+        }
+    }
+    await UpdatedPetDetails.save()
     req.flash('success', 'Update Complete, Pet Details Send To Admin For Review')
     res.redirect(`/profile`)
 }))
-router.delete('/:id',isLoggedIn,asyncHandler(async(req,res,next) => {
+router.delete('/:id',isLoggedIn,doesPetExist,isPetAuthor,asyncHandler(async(req,res,next) => {
     const { id } = req.params
     const pet = await petModel.findById(id)
     const user = await User.findOne(req.user)
+    if(pet.image){
+        await cloudinary.uploader.destroy(pet.image.filename)
+    }
+    if(pet.img){
+        pet.img.forEach(async(ele) => {
+            await cloudinary.uploader.destroy(ele.filename)
+        });
+    }
     user.pets.pull(pet)
+    await user.save()
     await petModel.findByIdAndDelete(id)
     req.flash('error', 'Delete Complete!')
     res.redirect(`/profile`)
@@ -79,17 +125,19 @@ router.get('/:id/adoptapplication',isLoggedIn, asyncHandler(async (req,res,next)
     const { id } = req.params;
     res.render('adopt/adoptionApplication.ejs', { id })
 }))
-router.post('/adoptapplication',isLoggedIn,asyncHandler(async (req,res,next) => {
-    const { petid, name, age, email, phone, address, description } = req.body;
+router.post('/:id/adoptapplication',isLoggedIn,doesPetExist,ValidateAdoption,asyncHandler(async (req,res,next) => {
+    const {name, age, email, phone, address, description } = req.body;
     const user = await User.findOne(req.user);
-    const pet = await petModel.findById(petid)
+    const pet = await petModel.findById(req.params.id)
+    // console.log(req.body)
+    // console.log(pet)
     const application = new Adoption({
         name: name,
         age: age,
         address: address,
         email: email,
         phone: phone,
-        pet: pet,
+        pet: pet._id,
         author: user,
         description: description
     })
@@ -97,7 +145,7 @@ router.post('/adoptapplication',isLoggedIn,asyncHandler(async (req,res,next) => 
     await application.save()
     await pet.save()
     req.flash('success', 'Application Successfully Send!')
-    res.redirect(`/adopt/${petid}`)
+    res.redirect(`/adopt/${pet._id}`)
 }))
 
 module.exports = router

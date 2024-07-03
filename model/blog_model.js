@@ -2,13 +2,11 @@
 
 const mongoose  = require('mongoose')
 const reviewmodel = require('./review_model')
+const {imageSchema} =require('./imageSchema')
 const Schema = mongoose.Schema
 
 const BlogSchema = Schema({
-    img:{
-        type:String,
-        required:true
-    },
+    img:imageSchema,
     title:{
         type:String,
         required:true

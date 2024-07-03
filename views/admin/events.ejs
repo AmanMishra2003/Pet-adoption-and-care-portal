@@ -31,7 +31,7 @@
                     <td><%= event[index].name %></td>
                     <td><%=`${event[index].date.getDate()}/${event[index].date.getMonth()+1}/${event[index].date.getFullYear()}` %></td>
                     <td>$<%= event[index].price %></td>
-                    <td><a href="<%= event[index].img %>">🔗</a></td>
+                    <td><a href="<%= event[index].img.path %>">🔗</a></td>
                   </tr>
             <% } %>
              

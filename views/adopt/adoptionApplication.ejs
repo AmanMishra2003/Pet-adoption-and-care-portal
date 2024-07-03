@@ -5,12 +5,13 @@
                 Apply For Adoption:
             </h1>
 
-            <form action="/adopt/adoptapplication" method="POST" class="needs-validation" novalidate>
+            <form action="/adopt/<%= id %>/adoptapplication" method="POST" class="needs-validation" novalidate>
                 <div class="py-3 px-2 border-bottom border-dark">
                     <p class="h5">Fill Below Details: <span class="fs-6 text-muted text-secondary">(your details will be
                             reviewed by the pet owner and after accepting request PetMatch will be sharing contact
                             details between both parties)</span> </p>
                     <div class="row justify-content-around mb-3">
+                        <!-- <%- //include('../partials/flash.ejs') %> -->
                         <div class="col-md-5 mb-3">
                             <div class="form-group">
                                 <label for="name" class="form-label">Name: </label>
@@ -63,16 +64,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-5 mb-3 mb-md-0">
-                            <div class="form-group">
-                                <label for="petid" class="form-label">Pet Id: </label>
-                                <input type="text" id="petid" name='petid' class="form-control" readonly
-                                    value="<%=id%>">
-                                <div class="valid-feedback">
-                                    Looks good!
-                                </div>
-                            </div>
-                        </div>
+                        <div class="col-md-5 mb-3 mb-md-0"></div>
                     </div>
                 </div>
                 <div class="my-4">

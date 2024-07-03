@@ -1,4 +1,5 @@
 const mongoose  = require('mongoose')
+const {imageSchema} =require('./imageSchema')
 
 const Schema = mongoose.Schema
 
@@ -15,10 +16,7 @@ const petDetailSchema = Schema({
         type:String,
         required:true
     },
-    image: {
-        type:String,
-        required:true
-    },
+    image: imageSchema,
     age: {
         type:Number,
         required:true
@@ -71,10 +69,7 @@ const petDetailSchema = Schema({
         type:Date,
         required:true
     },
-    img : [{
-        type:String,
-        required:true
-    }],
+    img : [imageSchema],
     facts:{
         breed:{
             type:String,
@@ -120,6 +115,7 @@ const petDetailSchema = Schema({
         ref:'Adoption'
     }]
 })
+
 
 
 module.exports = mongoose.model('petModel', petDetailSchema)

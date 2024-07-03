@@ -12,12 +12,12 @@ const Appointment = require('../model/appointment_model');
 //module
 const  {transporter} = require('../mail/mail.js');
 const  {template} = require('../mail/adoptionApplicationTemplate.js');
-const {isLoggedIn} = require('../middleware.js')
+const {isLoggedIn,ValidateProfile} = require('../middleware.js')
 
 
 router.get('/',isLoggedIn,asyncHandler(async (req,res,next)=>{
     const user = await User.findOne(req.user).populate('profile').populate('pets').populate('events').populate('blog');
-    console.log(user)
+    // console.log(user)
     res.render('profile/profile.ejs',{user})
 }))
 
@@ -25,10 +25,10 @@ router.get('/new',isLoggedIn,(req,res)=>{
     res.render('profile/addprofile.ejs')
 })
 
-router.post('/new',isLoggedIn,asyncHandler(async (req,res,next)=>{
+router.post('/new',isLoggedIn,ValidateProfile,asyncHandler(async (req,res,next)=>{
     const profileData = new Profile(req.body);
     await profileData.save();
-    console.log(profileData)
+    // console.log(profileData)
     const user = await User.findOne(req.user);
     user.profile = profileData;
     await user.save();
@@ -43,7 +43,7 @@ router.get('/:id/edit',isLoggedIn,asyncHandler(async (req,res,next)=>{
     res.render('profile/editprofile.ejs',{data})
 }))
 
-router.put('/:id',isLoggedIn,asyncHandler(async (req,res,next)=>{
+router.put('/:id',isLoggedIn,ValidateProfile,asyncHandler(async (req,res,next)=>{
     const {id} = req.params;
     await Profile.findByIdAndUpdate(id, req.body, {runValidation:true,new:true})
     res.redirect('/profile')
@@ -105,7 +105,7 @@ router.get('/myappointment',isLoggedIn,asyncHandler(async (req,res)=>{
     const tdate = new Date()
     const appointment_upcoming = await Appointment.find({author : req.user._id, date: {$gt:tdate}})
     const appointment_passed = await Appointment.find({author : req.user._id, date: {$lte:tdate}})
-    console.log(appointment_upcoming)
+    // console.log(appointment_upcoming)
     res.render('profile/myappointment',{appointment_upcoming,appointment_passed })
 }))
 router.get('/appointment/:id',isLoggedIn,asyncHandler(async (req,res)=>{

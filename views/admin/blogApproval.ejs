@@ -9,7 +9,10 @@
             
             <div class="card w-100 d-flex flex-row align-items-center text-white bg-dark my-5">
                 <div class="w-25">
-                    <img src="<%= element.img %>" alt="" srcset="" class="img-fluid w-100" style="height: 250px; object-fit: cover; object-position:center">
+                    <% if (element.img) { %>
+                     
+                        <img src="<%= element.img.path %>" alt="" srcset="" class="img-fluid w-100" style="height: 250px; object-fit: cover; object-position:center">
+                    <% } %>
                 </div>
                 <div class="card-body border-end">
                      <p class="h3 text-capitalize"><%= element.author.username %></p> <p class=" fs-6"><%=`${element.date.getDate()}/${element.date.getMonth()+1}/${element.date.getFullYear()}` %></p>
